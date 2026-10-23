@@ -1,0 +1,665 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Saryarqa Routes Prototype</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* Layout: sticky header → steppe hero with trip planner → tour cards → trust block; tour page and booking flow are separate views with a summary rail; AI assistant floats bottom-right */
+:root{
+  --bg:#F3F6F8; --surface:#FFFFFF; --surface-2:#EAF0F4; --ink:#13283D; --muted:#5A6B7B; --line:#D8E1E8;
+  --sky:#0A84A6; --sky-soft:#DDF0F6; --gold:#E9B32C; --on-gold:#2A1E00; --ok:#1D7F4F; --ok-soft:#DDF3E8;
+  --warn-bg:#FFF4D1; --warn-ink:#5B4300; --shadow:0 10px 30px rgba(19,40,61,.12);
+  --display:"Unbounded","Arial Black",system-ui,sans-serif;
+  --body:"Onest",system-ui,-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+  --r:14px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0D1823; --surface:#142336; --surface-2:#1A2D44; --ink:#E7EDF2; --muted:#9BAABA; --line:#263A50;
+  --sky:#45C2E2; --sky-soft:#123247; --gold:#F1C24B; --on-gold:#2A1E00; --ok:#5CCB93; --ok-soft:#143327;
+  --warn-bg:#3A3112; --warn-ink:#F5DE98; --shadow:0 10px 30px rgba(0,0,0,.4); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0D1823; --surface:#142336; --surface-2:#1A2D44; --ink:#E7EDF2; --muted:#9BAABA; --line:#263A50;
+  --sky:#45C2E2; --sky-soft:#123247; --gold:#F1C24B; --on-gold:#2A1E00; --ok:#5CCB93; --ok-soft:#143327;
+  --warn-bg:#3A3112; --warn-ink:#F5DE98; --shadow:0 10px 30px rgba(0,0,0,.4); color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--surface)}
+h1,h2,h3{font-family:var(--display);line-height:1.15;text-wrap:balance;margin:0;font-weight:700}
+h1{font-size:clamp(28px,5vw,48px)} h2{font-size:clamp(22px,3vw,30px)} h3{font-size:18px;font-weight:500}
+p{margin:0}
+button,input,select{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--sky);outline-offset:2px;border-radius:6px}
+.wrap{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.eyebrow{font-size:12px;text-transform:uppercase;letter-spacing:.12em;font-weight:600;color:var(--sky)}
+.muted{color:var(--muted)}
+.num{font-variant-numeric:tabular-nums}
+
+/* demo banner */
+.demo{background:var(--warn-bg);color:var(--warn-ink);font-size:13px}
+.demo .wrap{padding-block:8px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+
+/* header */
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--surface);border-bottom:1px solid var(--line)}
+header .wrap{display:flex;align-items:center;gap:16px;padding-block:12px;flex-wrap:wrap}
+.logo{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:700;font-size:17px;background:none;border:0;cursor:pointer;padding:0}
+.logo svg{flex:none}
+.nav{display:flex;gap:4px;margin-left:auto;flex-wrap:wrap}
+.nav a{color:var(--ink);text-decoration:none;font-weight:500;font-size:15px;padding:6px 10px;border-radius:8px}
+.nav a:hover{background:var(--surface-2)}
+.prefs{display:flex;gap:8px}
+.prefs select{background:var(--surface-2);border:1px solid var(--line);border-radius:8px;padding:6px 8px;font-size:14px}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:999px;padding:12px 22px;font-weight:600;cursor:pointer;text-decoration:none;font-size:15px}
+.btn-gold{background:var(--gold);color:var(--on-gold)}
+.btn-gold:hover{filter:brightness(1.05)}
+.btn-line{background:transparent;border:1.5px solid var(--line);color:var(--ink)}
+.btn-line:hover{border-color:var(--sky)}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+
+/* hero */
+.hero{position:relative;overflow:hidden;color:#fff;background:#0B3550}
+.hero-art{position:absolute;inset:0}
+.hero-art svg{width:100%;height:100%;display:block}
+.hero .wrap{position:relative;padding-block:56px 40px;display:grid;grid-template-columns:1.1fr .9fr;gap:32px;align-items:end}
+.hero h1{color:#fff}
+.hero p.lead{font-size:18px;max-width:34ch;margin-top:14px;color:#E6F2F7}
+.hero-points{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.chip-dark{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);color:#fff;border-radius:999px;padding:6px 12px;font-size:13px;backdrop-filter:blur(4px)}
+
+/* planner */
+.planner{background:var(--surface);color:var(--ink);border-radius:18px;padding:20px;box-shadow:var(--shadow);display:grid;gap:14px}
+.planner label{font-weight:600;font-size:14px}
+.planner .row{display:grid;gap:8px}
+.range-row{display:flex;align-items:center;gap:12px}
+.range-row input{flex:1;accent-color:var(--sky)}
+.range-row output{font-family:var(--display);font-size:20px;min-width:3.5ch;text-align:right}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{border:1.5px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 12px;font-size:14px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--sky-soft);border-color:var(--sky);color:var(--ink);font-weight:600}
+.plan-result{border-top:1px dashed var(--line);padding-top:14px;display:grid;gap:8px}
+.plan-result strong{font-family:var(--display);font-weight:500}
+
+section.block{padding-block:48px}
+.section-head{display:flex;justify-content:space-between;align-items:end;gap:16px;margin-bottom:22px;flex-wrap:wrap}
+.section-head p{max-width:52ch}
+
+/* tours */
+.tours{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.tour-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column;cursor:pointer;text-align:left;padding:0;transition:transform .2s,box-shadow .2s}
+.tour-card:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+.tour-art{aspect-ratio:4/3;max-width:100%;position:relative}
+.tour-art svg{width:100%;height:100%;display:block}
+.badge{position:absolute;left:10px;top:10px;background:rgba(10,25,40,.72);color:#fff;font-size:12px;padding:4px 9px;border-radius:999px}
+.tour-body{padding:14px 16px 16px;display:grid;gap:6px;flex:1;align-content:start}
+.tour-meta{font-size:13px;color:var(--muted);display:flex;gap:10px;flex-wrap:wrap}
+.tour-price{margin-top:auto;padding-top:8px;display:flex;align-items:baseline;justify-content:space-between}
+.tour-price b{font-family:var(--display);font-size:18px;font-weight:500}
+
+/* problem→solution strip */
+.fixes{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.fix{border-top:3px solid var(--sky);padding-top:14px;display:grid;gap:8px;align-content:start}
+.fix q{font-style:italic;color:var(--muted);font-size:14px}
+.fix h3{font-size:16px}
+
+/* trust */
+.trust{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px}
+.stat b{font-family:var(--display);font-size:24px;font-weight:500;display:block}
+.stat span{font-size:13px;color:var(--muted)}
+.policy{margin-top:16px;display:grid;gap:10px}
+.policy div{display:flex;gap:10px;align-items:flex-start}
+.tick{flex:none;width:22px;height:22px;border-radius:50%;background:var(--ok-soft);color:var(--ok);display:grid;place-items:center;font-size:13px;font-weight:700}
+.cross{background:var(--surface-2);color:var(--muted)}
+.reviews{display:grid;gap:12px}
+.review{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;display:grid;gap:8px}
+.review header{all:unset;display:flex;justify-content:space-between;gap:8px;font-size:14px;flex-wrap:wrap}
+.stars{color:var(--gold);letter-spacing:2px}
+.src{font-size:12px;color:var(--muted)}
+.guides{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}
+.guide{display:flex;gap:10px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px}
+.ava{flex:none;width:42px;height:42px;border-radius:50%;display:grid;place-items:center;font-family:var(--display);color:#fff;font-size:15px}
+.guide small{display:block;color:var(--muted);font-size:12px}
+
+/* tour detail */
+.back{background:none;border:0;color:var(--sky);font-weight:600;cursor:pointer;padding:0;margin-block:20px 12px}
+.detail{display:grid;grid-template-columns:1fr 340px;gap:32px;align-items:start;padding-bottom:56px}
+.detail > div{min-width:0}
+.detail-art{border-radius:18px;overflow:hidden;aspect-ratio:16/8;max-width:100%;position:relative}
+.detail-art svg{width:100%;height:100%;display:block}
+.preview-btn{position:absolute;right:12px;bottom:12px;background:rgba(10,25,40,.75);color:#fff;border:0;border-radius:999px;padding:8px 14px;font-size:13px;cursor:pointer}
+.detail h1{font-size:clamp(26px,4vw,38px);margin-top:18px}
+.facts{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.fact{background:var(--surface-2);border-radius:8px;padding:6px 10px;font-size:14px}
+.days{margin-top:24px;display:grid;gap:0}
+.day{display:grid;grid-template-columns:72px 1fr;gap:14px;padding-block:14px;border-bottom:1px solid var(--line)}
+.day b{font-family:var(--display);font-weight:500;font-size:14px;color:var(--sky)}
+.incl{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:28px}
+.incl ul{list-style:none;padding:0;margin:10px 0 0;display:grid;gap:8px}
+.incl li{display:flex;gap:10px;align-items:flex-start}
+.rail{position:sticky;top:calc(env(safe-area-inset-top,0px) + 84px);background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:20px;display:grid;gap:12px;box-shadow:var(--shadow)}
+.rail .price{font-family:var(--display);font-size:28px;font-weight:500}
+.rail small{color:var(--muted)}
+.paylogos{display:flex;gap:6px;flex-wrap:wrap}
+.pl{font-size:11px;font-weight:700;border:1px solid var(--line);border-radius:6px;padding:3px 7px;color:var(--muted)}
+
+/* booking */
+.steps{display:flex;gap:8px;margin-block:8px 22px;flex-wrap:wrap}
+.step{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--muted)}
+.step i{font-style:normal;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;border:1.5px solid var(--line);font-size:13px;font-weight:700}
+.step.on{color:var(--ink);font-weight:600}
+.step.on i{background:var(--sky);border-color:var(--sky);color:#fff}
+.step.done i{background:var(--ok-soft);border-color:var(--ok);color:var(--ok)}
+.step + .step::before{content:"";width:18px;height:1.5px;background:var(--line)}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:22px;display:grid;gap:16px}
+.dates{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.date{border:1.5px solid var(--line);background:var(--surface);border-radius:12px;padding:12px;text-align:left;cursor:pointer;display:grid;gap:2px}
+.date[aria-pressed="true"]{border-color:var(--sky);background:var(--sky-soft)}
+.date small{color:var(--muted);font-size:12px}
+.counter{display:flex;align-items:center;gap:14px}
+.counter button{width:40px;height:40px;border-radius:50%;border:1.5px solid var(--line);background:var(--surface);font-size:20px;cursor:pointer}
+.counter output{font-family:var(--display);font-size:24px;min-width:2ch;text-align:center}
+.field{display:grid;gap:6px}
+.field label{font-size:14px;font-weight:600}
+.field input,.field select{border:1.5px solid var(--line);border-radius:10px;padding:11px 12px;background:var(--surface);width:100%}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.pays{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.pay{border:1.5px solid var(--line);border-radius:12px;padding:12px;cursor:pointer;background:var(--surface);text-align:left;display:grid;gap:2px}
+.pay[aria-pressed="true"]{border-color:var(--sky);background:var(--sky-soft)}
+.pay b{font-size:14px} .pay small{font-size:12px;color:var(--muted)}
+.secure{display:flex;gap:10px;align-items:flex-start;background:var(--ok-soft);border-radius:12px;padding:12px;font-size:14px}
+.actions{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.summary{display:grid;gap:10px}
+.sumrow{display:flex;justify-content:space-between;gap:10px;font-size:14px}
+.sumrow.total{border-top:1px solid var(--line);padding-top:10px;font-weight:700;font-size:16px}
+
+/* confirmation */
+.done-hero{display:grid;gap:10px;justify-items:start;padding-block:32px 20px}
+.big-tick{width:56px;height:56px;border-radius:50%;background:var(--ok);color:#fff;display:grid;place-items:center;font-size:28px}
+.code{font-family:var(--display);font-size:20px;letter-spacing:.06em;background:var(--surface-2);padding:6px 12px;border-radius:8px}
+.done-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:22px;padding-bottom:56px}
+.email{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--surface)}
+.email-top{background:var(--surface-2);padding:12px 16px;font-size:13px;color:var(--muted);display:grid;gap:2px}
+.email-body{padding:16px;display:grid;gap:10px;font-size:15px}
+.checklist{list-style:none;padding:0;margin:0;display:grid;gap:8px}
+.checklist label{display:flex;gap:10px;align-items:center;cursor:pointer}
+.checklist input{accent-color:var(--ok);width:18px;height:18px}
+
+/* AI assistant */
+.fab{position:fixed;right:calc(18px + env(safe-area-inset-right,0px));bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:30;background:var(--sky);color:#fff;border:0;border-radius:999px;padding:14px 18px;font-weight:600;box-shadow:var(--shadow);cursor:pointer;display:flex;gap:8px;align-items:center}
+.chat{position:fixed;right:calc(18px + env(safe-area-inset-right,0px));bottom:calc(84px + env(safe-area-inset-bottom,0px));z-index:30;width:min(380px,calc(100vw - 32px));height:min(540px,calc(100vh - 140px));background:var(--surface);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);display:flex;flex-direction:column;overflow:hidden}
+.chat-head{padding:14px 16px;background:var(--sky);color:#fff;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.chat-head small{display:block;opacity:.85;font-size:12px}
+.chat-head button{background:none;border:0;color:#fff;font-size:22px;cursor:pointer;line-height:1}
+.msgs{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px}
+.msg{max-width:85%;padding:10px 12px;border-radius:14px;font-size:14px;line-height:1.45}
+.msg.bot{background:var(--surface-2);align-self:flex-start;border-bottom-left-radius:4px}
+.msg.me{background:var(--sky);color:#fff;align-self:flex-end;border-bottom-right-radius:4px}
+.msg.typing{color:var(--muted)}
+.quick{display:flex;gap:6px;overflow-x:auto;padding:0 14px 10px}
+.quick button{flex:none;border:1.5px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 10px;font-size:13px;cursor:pointer}
+.chat form{display:flex;gap:8px;border-top:1px solid var(--line);padding:10px}
+.chat input{flex:1;border:1.5px solid var(--line);border-radius:999px;padding:10px 14px;background:var(--surface);min-width:0}
+.chat form button{border:0;background:var(--gold);color:var(--on-gold);border-radius:999px;padding:0 16px;font-weight:600;cursor:pointer}
+
+/* 360 preview modal */
+.modal{position:fixed;inset:0;z-index:40;background:rgba(5,15,25,.75);display:grid;place-items:center;padding:20px}
+.modal-box{background:var(--surface);border-radius:18px;overflow:hidden;width:min(760px,100%)}
+.pano{height:min(360px,50vh);overflow:hidden;position:relative;cursor:grab;touch-action:pan-y}
+.pano svg{height:100%;width:auto;display:block;position:absolute;left:0;top:0}
+.modal-foot{padding:14px 18px;display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap}
+
+footer{border-top:1px solid var(--line);padding-block:28px;font-size:13px;color:var(--muted)}
+
+@media (max-width:960px){
+  .tours,.fixes{grid-template-columns:1fr 1fr}
+  .hero .wrap{grid-template-columns:1fr}
+  .detail,.done-grid,.trust{grid-template-columns:1fr}
+  .rail{position:static}
+  .guides{grid-template-columns:1fr 1fr}
+}
+@media (max-width:560px){
+  .tours,.fixes,.incl,.grid2,.guides{grid-template-columns:1fr}
+  .dates,.pays{grid-template-columns:1fr 1fr}
+  .stats{grid-template-columns:1fr 1fr 1fr}
+  .nav{display:none}
+  .prefs{margin-left:auto}
+  .day{grid-template-columns:1fr;gap:4px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div class="demo"><div class="wrap"><strong>Concept prototype</strong><span>Zerttex Hackathon 2026 · Case 1. Saryarqa Routes is a fictional company. Prices, reviews and guides are sample data. No real bookings or payments happen here.</span></div></div>
+
+<header>
+  <div class="wrap">
+    <button class="logo" id="logo" aria-label="Saryarqa Routes home">
+      <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true"><circle cx="17" cy="17" r="17" fill="#0A84A6"/><circle cx="17" cy="13" r="5" fill="#E9B32C"/><path d="M3 24 L11 17 L16 21 L23 14 L31 24 Z" fill="#fff"/></svg>
+      Saryarqa Routes
+    </button>
+    <nav class="nav">
+      <a href="#tours" data-i18n="navTours">Tours</a>
+      <a href="#planner" data-i18n="navPlan">Trip planner</a>
+      <a href="#trust" data-i18n="navTrust">Why trust us</a>
+    </nav>
+    <div class="prefs">
+      <select id="lang" aria-label="Language"><option value="en">EN</option><option value="de">DE</option><option value="zh">中文</option></select>
+      <select id="cur" aria-label="Currency"><option value="USD">$ USD</option><option value="EUR">€ EUR</option><option value="CNY">¥ CNY</option><option value="KZT">₸ KZT</option></select>
+    </div>
+  </div>
+</header>
+
+<main>
+<!-- HOME -->
+<div id="view-home">
+  <section class="hero">
+    <div class="hero-art" id="heroArt"></div>
+    <div class="wrap">
+      <div>
+        <div class="eyebrow" style="color:#FFD772" data-i18n="heroEyebrow">Guided trips across Kazakhstan</div>
+        <h1 data-i18n="heroTitle">Canyons, mountain lakes and Silk Road cities. Booked in two minutes.</h1>
+        <p class="lead" data-i18n="heroLead">Clear prices in your currency, a full list of what's included, and secure payment with your own card.</p>
+        <div class="hero-points">
+          <span class="chip-dark" data-i18n="p1">Pay with Visa, Mastercard, Apple Pay</span>
+          <span class="chip-dark" data-i18n="p2">Free cancellation up to 7 days</span>
+          <span class="chip-dark" data-i18n="p3">24/7 AI assistant</span>
+        </div>
+      </div>
+      <div class="planner" id="planner">
+        <div>
+          <div class="eyebrow" data-i18n="planEyebrow">AI trip planner</div>
+          <h3 style="margin-top:4px" data-i18n="planTitle">Tell us your days and interests</h3>
+        </div>
+        <div class="row">
+          <label for="pDays" data-i18n="planDays">Days available</label>
+          <div class="range-row"><input type="range" id="pDays" min="2" max="7" value="3"><output id="pDaysOut" class="num">3</output></div>
+        </div>
+        <div class="row">
+          <label data-i18n="planInt">I'm interested in</label>
+          <div class="chips" id="pInt">
+            <button class="chip" data-v="nature" aria-pressed="true">Nature</button>
+            <button class="chip" data-v="history" aria-pressed="false">History</button>
+            <button class="chip" data-v="photo" aria-pressed="false">Photography</button>
+            <button class="chip" data-v="lakes" aria-pressed="false">Lakes</button>
+            <button class="chip" data-v="easy" aria-pressed="false">Easy walking</button>
+          </div>
+        </div>
+        <div class="plan-result" id="pResult" aria-live="polite"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="tours">
+    <div class="wrap">
+      <div class="section-head">
+        <div><div class="eyebrow" data-i18n="toursEyebrow">Our routes</div><h2 data-i18n="toursTitle">Four trips, one clear price each</h2></div>
+        <p class="muted" data-i18n="toursLead">Every price is per traveler and already includes the guide, transport, meals and entrance fees. Nothing is added at checkout.</p>
+      </div>
+      <div class="tours" id="tourGrid"></div>
+    </div>
+  </section>
+
+  <section class="block" style="background:var(--surface);border-block:1px solid var(--line)">
+    <div class="wrap">
+      <div class="section-head"><div><div class="eyebrow">What foreign guests told us</div><h2>Four complaints, four fixes</h2></div></div>
+      <div class="fixes">
+        <div class="fix"><q>It is unclear how to book.</q><h3>3-step online booking</h3><p class="muted">Date, travelers, payment. Instant confirmation by email.</p></div>
+        <div class="fix"><q>I am not sure the company is trustworthy.</q><h3>Proof on every page</h3><p class="muted">Verified reviews, real guide profiles, licence number and a written refund policy.</p></div>
+        <div class="fix"><q>My foreign card does not work.</q><h3>International payments</h3><p class="muted">Visa, Mastercard, Apple Pay, Google Pay and Alipay through a licensed payment provider.</p></div>
+        <div class="fix"><q>I do not know what is included.</q><h3>Included / not included</h3><p class="muted">A clear list on each tour, repeated in the booking summary and the confirmation email.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="trust">
+    <div class="wrap trust">
+      <div>
+        <div class="eyebrow" data-i18n="trustEyebrow">Why trust us</div>
+        <h2 data-i18n="trustTitle">A registered Astana company, not a stranger on Instagram</h2>
+        <div class="stats">
+          <div class="stat"><b class="num">2020</b><span>Founded in Astana</span></div>
+          <div class="stat"><b class="num">3,400</b><span>Travelers in 2025</span></div>
+          <div class="stat"><b class="num">25</b><span>Local guides</span></div>
+        </div>
+        <div class="policy">
+          <div><span class="tick">✓</span><span><b>Free cancellation</b> up to 7 days before departure. Full refund to your card.</span></div>
+          <div><span class="tick">✓</span><span><b>Secure payment.</b> Card details go to the payment provider. We never see or store them.</span></div>
+          <div><span class="tick">✓</span><span><b>Licensed tour operator.</b> Licence number shown on every confirmation (sample: TO-000000).</span></div>
+        </div>
+        <h3 style="margin-top:24px">Meet some of our guides</h3>
+        <div class="guides" id="guideList"></div>
+      </div>
+      <div>
+        <div class="reviews" id="reviewList"></div>
+        <p class="src" style="margin-top:8px">Sample reviews for the prototype. In the real product they are pulled from Google and TripAdvisor.</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- TOUR DETAIL -->
+<div id="view-tour" hidden>
+  <div class="wrap">
+    <button class="back" data-go="home">← All tours</button>
+    <div class="detail">
+      <div>
+        <div class="detail-art" id="dArt"></div>
+        <h1 id="dName"></h1>
+        <p class="muted" id="dSummary" style="margin-top:8px;max-width:62ch"></p>
+        <div class="facts" id="dFacts"></div>
+        <h2 style="margin-top:32px;font-size:22px">Day by day</h2>
+        <div class="days" id="dDays"></div>
+        <div class="incl">
+          <div><h3>Included</h3><ul id="dInc"></ul></div>
+          <div><h3>Not included</h3><ul id="dExc"></ul></div>
+        </div>
+        <h3 style="margin-top:28px">What to bring</h3>
+        <ul id="dBring" class="muted" style="margin-top:8px"></ul>
+      </div>
+      <aside class="rail">
+        <small>From, per traveler</small>
+        <div class="price num" id="dPrice"></div>
+        <small id="dKzt" class="num"></small>
+        <button class="btn btn-gold" id="dBook">Choose a date</button>
+        <button class="btn btn-line" id="dAsk">Ask the assistant</button>
+        <div class="policy" style="margin-top:4px">
+          <div><span class="tick">✓</span><span style="font-size:14px">Free cancellation up to 7 days</span></div>
+          <div><span class="tick">✓</span><span style="font-size:14px">Instant email confirmation</span></div>
+        </div>
+        <div class="paylogos"><span class="pl">VISA</span><span class="pl">MASTERCARD</span><span class="pl">APPLE PAY</span><span class="pl">GOOGLE PAY</span><span class="pl">ALIPAY</span></div>
+      </aside>
+    </div>
+  </div>
+</div>
+
+<!-- BOOKING -->
+<div id="view-book" hidden>
+  <div class="wrap">
+    <button class="back" id="bBack">← Back to tour</button>
+    <h2 id="bTitle"></h2>
+    <div class="steps" id="bSteps"></div>
+    <div class="detail">
+      <div class="panel" id="bPanel"></div>
+      <aside class="rail summary" id="bSummary"></aside>
+    </div>
+  </div>
+</div>
+
+<!-- CONFIRMATION -->
+<div id="view-done" hidden>
+  <div class="wrap">
+    <div class="done-hero">
+      <div class="big-tick">✓</div>
+      <h1 style="font-size:clamp(26px,4vw,38px)">Your trip is booked</h1>
+      <p class="muted" id="cLine"></p>
+      <span class="code num" id="cCode"></span>
+    </div>
+    <div class="done-grid">
+      <div class="email">
+        <div class="email-top"><span><b>From:</b> Saryarqa Routes &lt;bookings@saryarqa-routes.example&gt;</span><span id="cTo"></span><span id="cSubj"></span></div>
+        <div class="email-body" id="cEmail"></div>
+      </div>
+      <div class="panel" style="align-content:start">
+        <h3>Your guide</h3>
+        <div class="guide" id="cGuide" style="border:0;padding:0"></div>
+        <p class="muted" style="font-size:14px">Your guide will message you on WhatsApp 48 hours before departure with the exact pickup time.</p>
+        <h3 style="margin-top:8px">Before you fly</h3>
+        <ul class="checklist">
+          <li><label><input type="checkbox" id="ck1">Check entry rules for your passport</label></li>
+          <li><label><input type="checkbox" id="ck2">Buy travel insurance</label></li>
+          <li><label><input type="checkbox" id="ck3">Save your guide's WhatsApp</label></li>
+          <li><label><input type="checkbox" id="ck4">Pack items from the "what to bring" list</label></li>
+        </ul>
+        <button class="btn btn-line" data-go="home">Back to all tours</button>
+      </div>
+    </div>
+  </div>
+</div>
+</main>
+
+<footer><div class="wrap">Saryarqa Routes · Astana, Kazakhstan · Concept prototype for Zerttex Hackathon 2026. Not a real company.</div></footer>
+
+<!-- AI assistant -->
+<button class="fab" id="fab" aria-expanded="false" aria-controls="chat"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg><span data-i18n="fab">Ask Aru, our AI guide</span></button>
+<div class="chat" id="chat" hidden role="dialog" aria-label="AI travel assistant">
+  <div class="chat-head"><div><b>Aru · AI travel assistant</b><small>Answers in seconds · a human takes over when needed</small></div><button id="chatClose" aria-label="Close">×</button></div>
+  <div class="msgs" id="msgs" aria-live="polite"></div>
+  <div class="quick" id="quick"></div>
+  <form id="chatForm"><input id="chatIn" placeholder="Ask anything about the trips…" autocomplete="off" aria-label="Your message"><button type="submit">Send</button></form>
+</div>
+
+<!-- 360 preview -->
+<div class="modal" id="modal" hidden>
+  <div class="modal-box">
+    <div class="pano" id="pano"></div>
+    <div class="modal-foot"><span class="muted" style="font-size:14px">360° route preview · drag to look around. In the real product: photo spheres filmed by our guides.</span><button class="btn btn-gold" id="modalClose">Close</button></div>
+  </div>
+</div>
+
+<script>
+/* ---------- data ---------- */
+const RATES={KZT:1,USD:510,EUR:590,CNY:71}; // fixed demo rates, not live
+const SYM={KZT:'₸',USD:'$',EUR:'€',CNY:'¥'};
+const TOURS=[
+ {id:'charyn',name:'Charyn Canyon',days:2,price:39000,start:'Almaty',level:'Easy',tags:['nature','photo','easy'],tag:'Red-rock canyon',scene:'canyon',
+  summary:'Walk through the Valley of Castles, a red-rock canyon east of Almaty, and spend a night under the steppe sky.',
+  plan:[['Day 1','Morning pickup from your Almaty hotel and a drive east across the steppe. Afternoon walk down into the Valley of Castles with your guide. Dinner and overnight at a guesthouse.'],['Day 2','Sunrise at the canyon viewpoint, a short rim hike, lunch, and return to Almaty in the evening.']],
+  inc:['English-speaking guide','Hotel pickup and transport','1 night guesthouse, twin room','All meals during the trip','Park entrance fees'],
+  exc:['Flights to Almaty','Travel insurance','Personal expenses'],
+  bring:['Comfortable walking shoes','Sun hat and sunscreen','A warm layer for the evening']},
+ {id:'kolsai',name:'Kolsai Lakes & Kaindy',days:3,price:52000,start:'Almaty',level:'Moderate',tags:['nature','lakes','photo'],tag:'Mountain lakes',scene:'lake',
+  summary:'Three days in the Tien Shan mountains: turquoise Kolsai lakes, the sunken forest of Lake Kaindy and a night in a village guesthouse.',
+  plan:[['Day 1','Pickup in Almaty, scenic drive to the mountains, evening in a guesthouse in Saty village.'],['Day 2','Walk around the first Kolsai lake and an optional hike higher up the valley. Picnic lunch by the water.'],['Day 3','Morning at Lake Kaindy with its sunken spruce trees, then return to Almaty.']],
+  inc:['English-speaking guide','Transport in a 4×4 for mountain roads','2 nights guesthouse','All meals during the trip','National park fees'],
+  exc:['Flights to Almaty','Horse riding (optional, pay on site)','Travel insurance'],
+  bring:['Hiking shoes','Rain jacket','Warm fleece, nights are cold']},
+ {id:'turkestan',name:'Turkestan Silk Road',days:4,price:58000,start:'Turkestan',level:'Easy',tags:['history','photo','easy'],tag:'Silk Road history',scene:'city',
+  summary:'The spiritual heart of Kazakhstan: the Mausoleum of Khoja Ahmed Yasawi, the ruins of ancient Sauran and Otrar, and evenings in the old town.',
+  plan:[['Day 1','Arrival in Turkestan, hotel check-in, evening walk in the old town.'],['Day 2','Guided visit to the Mausoleum of Khoja Ahmed Yasawi and the city museum.'],['Day 3','Day trip to the ruins of Sauran and Otrar on the old Silk Road.'],['Day 4','Craft market and a farewell lunch, transfer to the airport or station.']],
+  inc:['English-speaking guide','Airport or station transfers','3 nights hotel','Breakfasts and two dinners','All museum and site tickets'],
+  exc:['Flights to Turkestan','Lunches on days 1–2','Travel insurance'],
+  bring:['Clothing that covers shoulders and knees for the mausoleum','Sun hat','Water bottle']},
+ {id:'burabay',name:'Burabay Lakes',days:2,price:32000,start:'Astana',level:'Easy',tags:['nature','lakes','easy'],tag:'Pine forest and lakes',scene:'forest',
+  summary:'A weekend escape from Astana to pine forests, clear lakes and granite rocks. Easy walks, good food, a sauna in the evening.',
+  plan:[['Day 1','Pickup in Astana and drive north. Walk to Lake Burabay viewpoints and the famous rock formations. Overnight at a lakeside resort.'],['Day 2','Morning boat ride or forest walk, lunch, and return to Astana by evening.']],
+  inc:['English-speaking guide','Transport from Astana','1 night lakeside resort','Breakfast, lunch and dinner','Park entrance fees'],
+  exc:['Flights to Astana','Spa and sauna','Travel insurance'],
+  bring:['Walking shoes','Swimsuit in summer','Warm jacket in spring and autumn']}
+];
+const GUIDES=[
+ {n:'Aigerim',l:'English, Russian, Kazakh',c:'#0A84A6',t:'charyn'},
+ {n:'Dauren',l:'English, German',c:'#B5651D',t:'kolsai'},
+ {n:'Nurlan',l:'中文, English',c:'#2E7D5B',t:'turkestan'}
+];
+const REVIEWS=[
+ {who:'Sophie, Germany',tour:'Kolsai Lakes',s:5,t:'Booking took two minutes and my German card worked straight away. The guide explained everything about the lakes.'},
+ {who:'Wei, China',tour:'Turkestan Silk Road',s:5,t:'The page listed exactly what was included, so there were no surprises. Nurlan spoke Chinese, which made it easy.'},
+ {who:'James, UK',tour:'Charyn Canyon',s:4,t:'Great canyon and a friendly guesthouse. Pickup was on time. I would book again.'}
+];
+
+/* ---------- state ---------- */
+const st={cur:'USD',lang:'en',tour:null,step:0,date:null,people:2,name:'Alex Morgan',email:'alex@example.com',country:'Germany',pay:'card'};
+try{const c=localStorage.getItem('sr_cur');if(c&&RATES[c])st.cur=c;const l=localStorage.getItem('sr_lang');if(l)st.lang=l;}catch(e){}
+
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
+function money(kzt){
+  if(st.cur==='KZT') return Math.round(kzt).toLocaleString('en-US').replace(/,/g,' ')+' ₸';
+  return SYM[st.cur]+Math.round(kzt/RATES[st.cur]).toLocaleString('en-US');
+}
+
+/* ---------- illustrated scenes (no external images) ---------- */
+function scene(kind,w=400,h=300,id=''){
+  const P={
+    canyon:{sky:['#F7C98B','#9FD3E6'],sun:'#FFF1C2',l:['#D98A55','#C0603A','#8E3F25']},
+    lake:{sky:['#BFE6F1','#5FB4D3'],sun:'#FFFFFF',l:['#7FA7A9','#2F6B5B','#1C4A3E'],water:'#2BB3B1'},
+    city:{sky:['#FBE3B0','#F2B25E'],sun:'#FFF6D9',l:['#E2B77A','#C9935B','#A9733F']},
+    forest:{sky:['#D8EEF5','#86C3DD'],sun:'#FFFFFF',l:['#6C8F86','#2F5F4C','#1E4234'],water:'#4A9CC0'},
+    hero:{sky:['#0B3550','#2D7FA6'],sun:'#FFD772',l:['#2B6E86','#1C4F66','#123A4E']}
+  }[kind];
+  const g='g'+kind+id;
+  const ridge=(y,amp,seed,col)=>{let d=`M0 ${h} L0 ${y}`;for(let x=0;x<=w;x+=w/10){const yy=y-Math.abs(Math.sin((x+seed)*0.021)*amp)-Math.abs(Math.sin((x+seed*3)*0.047)*amp*.5);d+=` L${x.toFixed(0)} ${yy.toFixed(0)}`;}return `<path d="${d} L${w} ${h} Z" fill="${col}"/>`;};
+  let body='';
+  if(kind==='canyon'){body=ridge(h*.55,h*.18,10,P.l[0])+ridge(h*.7,h*.2,90,P.l[1])+`<path d="M0 ${h} L0 ${h*.86} Q${w*.3} ${h*.78} ${w*.5} ${h*.9} T${w} ${h*.84} L${w} ${h} Z" fill="${P.l[2]}"/>`;}
+  else if(kind==='lake'){body=`<path d="M0 ${h*.55} L${w*.2} ${h*.18} L${w*.38} ${h*.5} L${w*.55} ${h*.12} L${w*.78} ${h*.48} L${w} ${h*.25} L${w} ${h} L0 ${h} Z" fill="${P.l[0]}"/><path d="M${w*.47} ${h*.2} L${w*.55} ${h*.12} L${w*.62} ${h*.22} Z" fill="#fff"/>`+ridge(h*.68,h*.12,40,P.l[1])+`<rect x="0" y="${h*.74}" width="${w}" height="${h*.26}" fill="${P.water}"/><rect x="0" y="${h*.74}" width="${w}" height="3" fill="#fff" opacity=".4"/>`;for(let i=0;i<9;i++){const x=i*w/8+((i*37)%20);body+=`<path d="M${x} ${h*.76} l12 -40 l12 40 Z" fill="${P.l[2]}"/>`;}}
+  else if(kind==='city'){body=ridge(h*.75,h*.06,5,P.l[0])+`<g fill="${P.l[2]}"><rect x="${w*.3}" y="${h*.5}" width="${w*.4}" height="${h*.3}"/><path d="M${w*.42} ${h*.5} A${w*.08} ${w*.08} 0 0 1 ${w*.58} ${h*.5} Z"/><rect x="${w*.47}" y="${h*.32}" width="${w*.06}" height="${h*.2}" rx="${w*.03}"/><rect x="${w*.24}" y="${h*.42}" width="${w*.04}" height="${h*.38}"/><rect x="${w*.72}" y="${h*.42}" width="${w*.04}" height="${h*.38}"/></g><path d="M${w*.45} ${h*.8} L${w*.45} ${h*.66} A${w*.05} ${w*.05} 0 0 1 ${w*.55} ${h*.66} L${w*.55} ${h*.8} Z" fill="#5A3A1E"/><rect x="0" y="${h*.8}" width="${w}" height="${h*.2}" fill="${P.l[1]}"/>`;}
+  else if(kind==='forest'){body=ridge(h*.5,h*.15,70,P.l[0])+`<rect x="0" y="${h*.72}" width="${w}" height="${h*.28}" fill="${P.water}"/><path d="M${w*.6} ${h*.72} Q${w*.68} ${h*.42} ${w*.74} ${h*.48} Q${w*.8} ${h*.38} ${w*.86} ${h*.72} Z" fill="#8C8C84"/>`;for(let i=0;i<12;i++){const x=i*w/11-6,ht=30+((i*13)%25);body+=`<path d="M${x} ${h*.74} l10 -${ht} l10 ${ht} Z" fill="${i%2?P.l[1]:P.l[2]}"/>`;}}
+  else {body=ridge(h*.6,h*.2,20,P.l[0])+ridge(h*.75,h*.14,120,P.l[1])+ridge(h*.88,h*.08,200,P.l[2]);}
+  return `<svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs><linearGradient id="${g}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${P.sky[1]}"/><stop offset="1" stop-color="${P.sky[0]}"/></linearGradient></defs><rect width="${w}" height="${h}" fill="url(#${g})"/><circle cx="${w*.78}" cy="${h*.22}" r="${h*.08}" fill="${P.sun}" opacity=".9"/>${body}</svg>`;
+}
+
+/* ---------- i18n (key UI strings only in prototype) ---------- */
+const T={
+ de:{navTours:'Touren',navPlan:'Reiseplaner',navTrust:'Warum wir',heroEyebrow:'Geführte Reisen durch Kasachstan',heroTitle:'Canyons, Bergseen und Städte der Seidenstraße. In zwei Minuten gebucht.',heroLead:'Klare Preise in Ihrer Währung, eine vollständige Leistungsliste und sichere Zahlung mit Ihrer eigenen Karte.',p1:'Zahlen mit Visa, Mastercard, Apple Pay',p2:'Kostenlose Stornierung bis 7 Tage',p3:'KI-Assistent rund um die Uhr',planEyebrow:'KI-Reiseplaner',planTitle:'Ihre Tage und Interessen',planDays:'Verfügbare Tage',planInt:'Ich interessiere mich für',toursEyebrow:'Unsere Routen',toursTitle:'Vier Reisen, jeweils ein klarer Preis',toursLead:'Jeder Preis gilt pro Person und enthält bereits Guide, Transport, Mahlzeiten und Eintritte.',trustEyebrow:'Warum wir',trustTitle:'Ein registriertes Unternehmen aus Astana',fab:'Fragen Sie Aru, unseren KI-Guide'},
+ zh:{navTours:'线路',navPlan:'行程规划',navTrust:'为什么信任我们',heroEyebrow:'哈萨克斯坦精品导游团',heroTitle:'峡谷、高山湖泊与丝绸之路古城，两分钟完成预订。',heroLead:'以您的货币显示清晰价格，完整列出包含项目，并可使用您自己的银行卡安全支付。',p1:'支持 Visa、Mastercard、Apple Pay、支付宝',p2:'出发前7天免费取消',p3:'24小时AI助手',planEyebrow:'AI行程规划',planTitle:'告诉我们您的天数和兴趣',planDays:'可用天数',planInt:'我感兴趣的是',toursEyebrow:'我们的线路',toursTitle:'四条线路，每条一个透明价格',toursLead:'价格按每位游客计算，已包含导游、交通、餐食和门票。',trustEyebrow:'为什么信任我们',trustTitle:'阿斯塔纳正规注册公司',fab:'咨询AI导游 Aru'}
+};
+const EN={};document.querySelectorAll('[data-i18n]').forEach(el=>EN[el.dataset.i18n]=el.textContent);
+function applyLang(){document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.dataset.i18n;el.textContent=(T[st.lang]&&T[st.lang][k])||EN[k];});document.documentElement.lang=st.lang;}
+
+/* ---------- views ---------- */
+function show(v){['home','tour','book','done'].forEach(x=>$('#view-'+x).hidden=x!==v);window.scrollTo(0,0);}
+document.addEventListener('click',e=>{const g=e.target.closest('[data-go]');if(g){show(g.dataset.go);}});
+$('#logo').onclick=()=>show('home');
+
+function renderHome(){
+  $('#heroArt').innerHTML=scene('hero',1200,500,'h');
+  $('#tourGrid').innerHTML=TOURS.map(t=>`<button class="tour-card" data-tour="${t.id}"><div class="tour-art">${scene(t.scene,400,300,t.id)}<span class="badge">${esc(t.tag)}</span></div><div class="tour-body"><h3>${esc(t.name)}</h3><div class="tour-meta"><span>${t.days} days</span><span>from ${esc(t.start)}</span><span>${t.level}</span></div><div class="tour-price"><span class="muted" style="font-size:13px">per traveler</span><b class="num">${money(t.price)}</b></div></div></button>`).join('');
+  $('#guideList').innerHTML=GUIDES.map(g=>`<div class="guide"><span class="ava" style="background:${g.c}">${g.n[0]}</span><div><b>${g.n}</b><small>${g.l}</small></div></div>`).join('');
+  $('#reviewList').innerHTML=REVIEWS.map(r=>`<div class="review"><header><b>${esc(r.who)}</b><span class="stars" aria-label="${r.s} of 5">${'★'.repeat(r.s)}${'☆'.repeat(5-r.s)}</span></header><p>${esc(r.t)}</p><span class="src">${esc(r.tour)} · verified booking</span></div>`).join('');
+  plan();
+}
+$('#tourGrid').addEventListener('click',e=>{const c=e.target.closest('[data-tour]');if(c)openTour(c.dataset.tour);});
+
+/* ---------- planner ---------- */
+function plan(){
+  const days=+$('#pDays').value;$('#pDaysOut').textContent=days;
+  const ints=[...document.querySelectorAll('#pInt .chip[aria-pressed="true"]')].map(b=>b.dataset.v);
+  const scored=TOURS.map(t=>{let s=t.tags.filter(x=>ints.includes(x)).length*2;if(t.days<=days)s+=2;else s-=3;s-=Math.abs(days-t.days)*.3;return{t,s};}).sort((a,b)=>b.s-a.s);
+  const best=scored[0].t,left=days-best.days;
+  const second=scored.find(x=>x.t.id!==best.id&&x.t.days<=left);
+  const why=best.tags.filter(x=>ints.includes(x)).map(x=>({nature:'nature',history:'history',photo:'great photo spots',lakes:'lakes',easy:'easy walking'}[x]));
+  $('#pResult').innerHTML=`<span class="muted" style="font-size:13px">Best match for you</span><strong>${esc(best.name)} · ${best.days} days</strong><span style="font-size:14px">${why.length?'Matches: '+why.join(', ')+'. ':''}${second?`You have ${left} days left: add <b>${esc(second.t.name)}</b>.`:best.days>days?'This trip is longer than your days. Ask the assistant for a shorter version.':''}</span><div><button class="btn btn-gold" style="padding:9px 16px" data-open="${best.id}">See this trip · ${money(best.price)}</button></div>`;
+}
+$('#pDays').oninput=plan;
+$('#pInt').onclick=e=>{const b=e.target.closest('.chip');if(!b)return;b.setAttribute('aria-pressed',b.getAttribute('aria-pressed')==='true'?'false':'true');plan();};
+$('#pResult').onclick=e=>{const b=e.target.closest('[data-open]');if(b)openTour(b.dataset.open);};
+
+/* ---------- tour page ---------- */
+function openTour(id){
+  const t=TOURS.find(x=>x.id===id);st.tour=t;
+  $('#dArt').innerHTML=scene(t.scene,800,400,'d'+t.id)+`<button class="preview-btn" id="pv">◎ 360° preview</button>`;
+  $('#pv').onclick=()=>openPano(t);
+  $('#dName').textContent=t.name;$('#dSummary').textContent=t.summary;
+  $('#dFacts').innerHTML=[`${t.days} days`,`Starts in ${t.start}`,`Level: ${t.level}`,'Small group, max 8','Guide languages: EN · DE · 中文'].map(f=>`<span class="fact">${f}</span>`).join('');
+  $('#dDays').innerHTML=t.plan.map(([d,x])=>`<div class="day"><b>${d}</b><p>${esc(x)}</p></div>`).join('');
+  $('#dInc').innerHTML=t.inc.map(x=>`<li><span class="tick">✓</span>${esc(x)}</li>`).join('');
+  $('#dExc').innerHTML=t.exc.map(x=>`<li><span class="tick cross">–</span>${esc(x)}</li>`).join('');
+  $('#dBring').innerHTML=t.bring.map(x=>`<li>${esc(x)}</li>`).join('');
+  priceRail();show('tour');
+}
+function priceRail(){if(!st.tour)return;$('#dPrice').textContent=money(st.tour.price);$('#dKzt').textContent=st.cur==='KZT'?'':`≈ ${Math.round(st.tour.price).toLocaleString('en-US').replace(/,/g,' ')} ₸ · you pay in ${st.cur}`;}
+$('#dBook').onclick=()=>startBooking();
+$('#dAsk').onclick=()=>{openChat();say(`What exactly is included in ${st.tour.name}?`);};
+
+/* ---------- 360 preview (simulated pano) ---------- */
+function openPano(t){
+  $('#pano').innerHTML=scene(t.scene,2000,360,'p'+t.id);$('#modal').hidden=false;
+  const svg=$('#pano svg'),box=$('#pano');let x=0,drag=false,sx=0;
+  const max=()=>svg.getBoundingClientRect().width-box.clientWidth;
+  const set=v=>{x=Math.max(-max(),Math.min(0,v));svg.style.left=x+'px';};
+  box.onpointerdown=e=>{drag=true;sx=e.clientX-x;box.setPointerCapture(e.pointerId);};
+  box.onpointermove=e=>{if(drag)set(e.clientX-sx);};
+  box.onpointerup=()=>drag=false;
+  set(-200);
+}
+$('#modalClose').onclick=()=>$('#modal').hidden=true;
+$('#modal').onclick=e=>{if(e.target.id==='modal')$('#modal').hidden=true;};
+
+/* ---------- booking ---------- */
+function departures(){const out=[],d=new Date();d.setDate(d.getDate()+5);for(let i=0;i<6;i++){const x=new Date(d);x.setDate(d.getDate()+i*4);out.push(x);}return out;}
+function startBooking(){st.step=0;st.date=null;$('#bTitle').textContent='Book: '+st.tour.name;renderBooking();show('book');}
+$('#bBack').onclick=()=>{if(st.step>0){st.step--;renderBooking();}else show('tour');};
+function renderBooking(){
+  const names=['Date','Travelers','Your details','Payment'];
+  $('#bSteps').innerHTML=names.map((n,i)=>`<span class="step ${i===st.step?'on':i<st.step?'done':''}"><i>${i<st.step?'✓':i+1}</i>${n}</span>`).join('');
+  const p=$('#bPanel'),t=st.tour;
+  if(st.step===0){
+    const ds=departures();
+    p.innerHTML=`<h3>Choose a departure date</h3><div class="dates">${ds.map((d,i)=>{const iso=d.toISOString().slice(0,10);const seats=[6,3,8,2,5,7][i];return `<button class="date" data-d="${iso}" aria-pressed="${st.date===iso}"><b>${d.toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'})}</b><small>${seats} seats left</small></button>`;}).join('')}</div><div class="actions"><span></span><button class="btn btn-gold" id="next" ${st.date?'':'disabled'}>Continue</button></div>`;
+    p.querySelector('.dates').onclick=e=>{const b=e.target.closest('.date');if(!b)return;st.date=b.dataset.d;renderBooking();};
+  }else if(st.step===1){
+    p.innerHTML=`<h3>How many travelers?</h3><div class="counter"><button id="minus" aria-label="Fewer travelers">−</button><output id="cnt" class="num">${st.people}</output><button id="plus" aria-label="More travelers">+</button></div><p class="muted" style="font-size:14px">Small groups only: up to 8 people per departure. Children under 12 get 30% off in the full product.</p><div class="actions"><span></span><button class="btn btn-gold" id="next">Continue</button></div>`;
+    $('#minus').onclick=()=>{st.people=Math.max(1,st.people-1);renderBooking();};
+    $('#plus').onclick=()=>{st.people=Math.min(8,st.people+1);renderBooking();};
+  }else if(st.step===2){
+    p.innerHTML=`<h3>Lead traveler</h3><p class="muted" style="font-size:14px">Filled with example details for the demo.</p><div class="grid2"><div class="field"><label for="fName">Full name</label><input id="fName" value="${esc(st.name)}"></div><div class="field"><label for="fEmail">Email</label><input id="fEmail" type="email" value="${esc(st.email)}"></div></div><div class="grid2"><div class="field"><label for="fCountry">Country</label><select id="fCountry">${['Germany','China','United Kingdom','South Korea','India','United States','Other'].map(c=>`<option ${c===st.country?'selected':''}>${c}</option>`).join('')}</select></div><div class="field"><label for="fLang">Guide language</label><select id="fLang"><option>English</option><option>Deutsch</option><option>中文</option></select></div></div><div class="actions"><span></span><button class="btn btn-gold" id="next">Continue to payment</button></div>`;
+  }else{
+    const pays=[['card','Visa / Mastercard','Any foreign card'],['apple','Apple Pay','One tap'],['google','Google Pay','One tap'],['alipay','Alipay','For travelers from China'],['kaspi','Kaspi','For residents of Kazakhstan']];
+    p.innerHTML=`<h3>Payment</h3><div class="pays">${pays.map(([k,a,b])=>`<button class="pay" data-p="${k}" aria-pressed="${st.pay===k}"><b>${a}</b><small>${b}</small></button>`).join('')}</div><div class="secure"><span class="tick">✓</span><span>You will be sent to the payment provider's secure page to enter your card. Saryarqa Routes never sees or stores card numbers. <b>This prototype skips that step and does not charge anything.</b></span></div><div class="actions"><span></span><button class="btn btn-gold" id="next">Pay ${money(t.price*st.people)} (demo)</button></div>`;
+    p.querySelector('.pays').onclick=e=>{const b=e.target.closest('.pay');if(!b)return;st.pay=b.dataset.p;renderBooking();};
+  }
+  const nx=$('#next');if(nx)nx.onclick=()=>{
+    if(st.step===2){st.name=$('#fName').value||'Guest';st.email=$('#fEmail').value||'guest@example.com';st.country=$('#fCountry').value;}
+    if(st.step<3){st.step++;renderBooking();}else{nx.disabled=true;nx.textContent='Processing…';setTimeout(confirmBooking,900);}
+  };
+  renderSummary();
+}
+function renderSummary(){
+  const t=st.tour,d=st.date?new Date(st.date).toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'}):'Not chosen yet';
+  $('#bSummary').innerHTML=`<div class="tour-art" style="border-radius:12px;overflow:hidden;aspect-ratio:16/9">${scene(t.scene,400,225,'s'+t.id)}</div><b style="font-family:var(--display);font-weight:500">${esc(t.name)}</b><div class="sumrow"><span class="muted">Date</span><span>${d}</span></div><div class="sumrow"><span class="muted">Travelers</span><span class="num">${st.people} × ${money(t.price)}</span></div><div class="sumrow"><span class="muted">Booking fee</span><span>${money(0)}</span></div><div class="sumrow total"><span>Total</span><span class="num">${money(t.price*st.people)}</span></div><div style="font-size:13px" class="muted">Included: ${t.inc.slice(0,3).map(esc).join(', ')} and more.</div><div class="policy"><div><span class="tick">✓</span><span style="font-size:13px">Free cancellation until 7 days before</span></div></div>`;
+}
+function confirmBooking(){
+  const t=st.tour,code='SR-'+Math.random().toString(36).slice(2,7).toUpperCase(),g=GUIDES.find(x=>x.t===t.id)||GUIDES[0];
+  const d=new Date(st.date).toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long'});
+  $('#cLine').textContent=`${t.name} · ${d} · ${st.people} traveler${st.people>1?'s':''} · paid ${money(t.price*st.people)}`;
+  $('#cCode').textContent=code;
+  $('#cTo').innerHTML=`<span><b>To:</b> ${esc(st.email)}</span>`;
+  $('#cSubj').innerHTML=`<span><b>Subject:</b> Confirmed: ${esc(t.name)}, ${d} (${code})</span>`;
+  $('#cEmail').innerHTML=`<p>Hi ${esc(st.name.split(' ')[0])},</p><p>Your trip is confirmed. Here is everything in one place.</p><p><b>Meeting point:</b> your hotel in ${esc(t.start)}, pickup time sent by your guide 48 hours before.</p><p><b>Included:</b> ${t.inc.map(esc).join(' · ')}</p><p><b>Not included:</b> ${t.exc.map(esc).join(' · ')}</p><p><b>Cancellation:</b> free until 7 days before departure, refunded to the same card.</p><p class="muted" style="font-size:13px">Saryarqa Routes LLP · Astana · Tour operator licence TO-000000 (sample)</p>`;
+  $('#cGuide').innerHTML=`<span class="ava" style="background:${g.c}">${g.n[0]}</span><div><b>${g.n}</b><small>${g.l}</small><small>WhatsApp: +7 700 000 00 00 (sample)</small></div>`;
+  show('done');
+}
+
+/* ---------- AI assistant (scripted for the prototype) ---------- */
+const RULES=[
+ [/includ|what.*get|cover/i,()=>st.tour?`${st.tour.name} includes: ${st.tour.inc.join(', ')}. Not included: ${st.tour.exc.join(', ')}.`:'Every trip includes an English-speaking guide, transport, accommodation, meals during the trip and entrance fees. Flights and travel insurance are not included. Open a tour to see its full list.'],
+ [/card|pay|visa card|mastercard|apple|alipay|money|currency/i,()=>'You can pay with Visa, Mastercard, Apple Pay, Google Pay or Alipay. Prices are shown in your currency, and your card is processed by a licensed payment provider, so we never see your card number.'],
+ [/visa|passport|entry|border/i,()=>'Many nationalities can visit Kazakhstan without a visa for a short stay, but the rules depend on your passport. Please check the official website of Kazakhstan\'s Ministry of Foreign Affairs before you fly. After booking I can send you a reminder.'],
+ [/trust|safe|scam|real|legit|licen/i,()=>'Saryarqa Routes is a registered company in Astana, working since 2020, with 3,400 travelers in 2025. Your payment goes through a licensed provider and you can cancel for free up to 7 days before departure.'],
+ [/cancel|refund/i,()=>'Free cancellation up to 7 days before departure, with a full refund to the same card. Closer to the date, we refund 50%.'],
+ [/weather|season|when|month|cold/i,()=>'Late May to early October is the best season for Charyn, Kolsai and Burabay. Turkestan is most comfortable in spring and autumn, because summer is very hot there.'],
+ [/day|short|long|recommend|which|best/i,()=>'Tell me how many days you have. For 2 days I suggest Charyn Canyon or Burabay. For 3 days, Kolsai Lakes. If you love history, Turkestan Silk Road takes 4 days.'],
+ [/human|person|manager|call|whatsapp/i,()=>'Sure. I have passed your chat to our team, and a manager will reply here or on WhatsApp within 1 hour during working hours (Astana time).'],
+ [/\b(hi|hello|hey|hallo)\b|привет|你好/i,()=>'Hello! I\'m Aru. Ask me about the trips, prices, payment or what to bring.'],
+];
+const QUICK=['What is included?','Can I pay with my foreign card?','Do I need a visa?','Is this company trustworthy?','Which trip for 3 days?','Talk to a human'];
+const msgs=$('#msgs');
+function add(text,who){const m=document.createElement('div');m.className='msg '+who;m.textContent=text;msgs.appendChild(m);msgs.scrollTop=msgs.scrollHeight;return m;}
+function reply(q){const r=RULES.find(([re])=>re.test(q));return r?r[1]():'Good question. In the full product I would answer this with an AI model trained on our trip details. In this demo, try one of the suggested questions below, or ask for a human.';}
+function say(q){add(q,'me');const t=add('Aru is typing…','bot typing');setTimeout(()=>{t.remove();add(reply(q),'bot');},650);}
+let opened=false;
+function openChat(){$('#chat').hidden=false;$('#fab').setAttribute('aria-expanded','true');if(!opened){opened=true;add('Hi, I\'m Aru, the Saryarqa Routes travel assistant. I can explain what\'s included, how to pay with a foreign card, and which trip suits your days.','bot');}$('#chatIn').focus();}
+$('#fab').onclick=()=>$('#chat').hidden?openChat():($('#chat').hidden=true,$('#fab').setAttribute('aria-expanded','false'));
+$('#chatClose').onclick=()=>{$('#chat').hidden=true;$('#fab').setAttribute('aria-expanded','false');};
+$('#quick').innerHTML=QUICK.map(q=>`<button>${q}</button>`).join('');
+$('#quick').onclick=e=>{const b=e.target.closest('button');if(b)say(b.textContent);};
+$('#chatForm').onsubmit=e=>{e.preventDefault();const v=$('#chatIn').value.trim();if(!v)return;$('#chatIn').value='';say(v);};
+
+/* ---------- prefs ---------- */
+$('#cur').value=st.cur;$('#lang').value=st.lang;
+$('#cur').onchange=e=>{st.cur=e.target.value;try{localStorage.setItem('sr_cur',st.cur);}catch(x){}renderHome();priceRail();if(!$('#view-book').hidden)renderBooking();};
+$('#lang').onchange=e=>{st.lang=e.target.value;try{localStorage.setItem('sr_lang',st.lang);}catch(x){}applyLang();};
+
+renderHome();applyLang();
+</script>
+</body>
+</html>
