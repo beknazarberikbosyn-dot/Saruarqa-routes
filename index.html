@@ -136,6 +136,10 @@ section.block{padding-block:48px}
 .detail > div{min-width:0}
 .detail-art{border-radius:18px;overflow:hidden;aspect-ratio:16/8;max-width:100%;position:relative}
 .detail-art svg{width:100%;height:100%;display:block}
+.photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.credit{position:absolute;left:10px;bottom:10px;background:rgba(10,25,40,.7);color:#fff;font-size:11px;padding:3px 8px;border-radius:999px;text-decoration:none}
+.credit:hover{text-decoration:underline}
+.credits a{color:inherit}
 .preview-btn{position:absolute;right:12px;bottom:12px;background:rgba(10,25,40,.75);color:#fff;border:0;border-radius:999px;padding:8px 14px;font-size:13px;cursor:pointer}
 .detail h1{font-size:clamp(26px,4vw,38px);margin-top:18px}
 .facts{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
@@ -460,7 +464,7 @@ footer{border-top:1px solid var(--line);padding-block:28px;font-size:13px;color:
 </div>
 </main>
 
-<footer><div class="wrap">Saryarqa Routes · Astana, Kazakhstan · Concept prototype for Zerttex Hackathon 2026. Not a real company.</div></footer>
+<footer><div class="wrap">Saryarqa Routes · Astana, Kazakhstan · Concept prototype for Zerttex Hackathon 2026. Not a real company.<p class="credits" style="margin-top:8px">Tour photos from Wikimedia Commons, used under their free licences; authors and licences are on each file page: <a href="https://commons.wikimedia.org/wiki/File:Charyn_Canyon,_Kazakhstan_02.jpg" target="_blank" rel="noopener">Charyn Canyon</a> · <a href="https://commons.wikimedia.org/wiki/File:Kolsai_lake.jpg" target="_blank" rel="noopener">Kolsai Lake</a> · <a href="https://commons.wikimedia.org/wiki/File:Mausoleum_of_Khoja_Ahmed_Yasavi_in_Turkestan,_Kazakhstan.jpg" target="_blank" rel="noopener">Mausoleum of Khoja Ahmed Yasawi</a> · <a href="https://commons.wikimedia.org/wiki/File:%D0%9A%D0%B0%D0%B7%D0%B0%D1%85%D1%81%D1%82%D0%B0%D0%BD._%D0%91%D0%BE%D1%80%D0%BE%D0%B2%D0%BE%D0%B5._%D0%92%D0%B8%D0%B4_%D0%BD%D0%B0_%D0%BE%D0%B7%D0%B5%D1%80%D0%BE_%D1%81_%D0%BF%D0%BB%D1%8F%D0%B6%D0%B0.jpg" target="_blank" rel="noopener">Lake Burabay</a>.</p></div></footer>
 
 <!-- AI assistant -->
 <button class="fab" id="fab" aria-expanded="false" aria-controls="chat"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg><span data-i18n="fab">Ask Aru, our AI guide</span></button>
@@ -493,25 +497,25 @@ footer{border-top:1px solid var(--line);padding-block:28px;font-size:13px;color:
 const RATES={KZT:1,USD:510,EUR:590,CNY:71}; // fixed demo rates, not live
 const SYM={KZT:'₸',USD:'$',EUR:'€',CNY:'¥'};
 const TOURS=[
- {id:'charyn',name:'Charyn Canyon',days:2,price:39000,start:'Almaty',level:'Easy',tags:['nature','photo','easy'],tag:'Red-rock canyon',scene:'canyon',
+ {id:'charyn',photo:{file:'Charyn_Canyon,_Kazakhstan_02.jpg',alt:'Red rock walls of Charyn Canyon'},name:'Charyn Canyon',days:2,price:39000,start:'Almaty',level:'Easy',tags:['nature','photo','easy'],tag:'Red-rock canyon',scene:'canyon',
   summary:'Walk through the Valley of Castles, a red-rock canyon east of Almaty, and spend a night under the steppe sky.',
   plan:[['Day 1','Morning pickup from your Almaty hotel and a drive east across the steppe. Afternoon walk down into the Valley of Castles with your guide. Dinner and overnight at a guesthouse.'],['Day 2','Sunrise at the canyon viewpoint, a short rim hike, lunch, and return to Almaty in the evening.']],
   inc:['English-speaking guide','Hotel pickup and transport','1 night guesthouse, twin room','All meals during the trip','Park entrance fees'],
   exc:['Flights to Almaty','Travel insurance','Personal expenses'],
   bring:['Comfortable walking shoes','Sun hat and sunscreen','A warm layer for the evening']},
- {id:'kolsai',name:'Kolsai Lakes & Kaindy',days:3,price:52000,start:'Almaty',level:'Moderate',tags:['nature','lakes','photo'],tag:'Mountain lakes',scene:'lake',
+ {id:'kolsai',photo:{file:'Kolsai_lake.jpg',alt:'Kolsai mountain lake surrounded by spruce forest'},name:'Kolsai Lakes & Kaindy',days:3,price:52000,start:'Almaty',level:'Moderate',tags:['nature','lakes','photo'],tag:'Mountain lakes',scene:'lake',
   summary:'Three days in the Tien Shan mountains: turquoise Kolsai lakes, the sunken forest of Lake Kaindy and a night in a village guesthouse.',
   plan:[['Day 1','Pickup in Almaty, scenic drive to the mountains, evening in a guesthouse in Saty village.'],['Day 2','Walk around the first Kolsai lake and an optional hike higher up the valley. Picnic lunch by the water.'],['Day 3','Morning at Lake Kaindy with its sunken spruce trees, then return to Almaty.']],
   inc:['English-speaking guide','Transport in a 4×4 for mountain roads','2 nights guesthouse','All meals during the trip','National park fees'],
   exc:['Flights to Almaty','Horse riding (optional, pay on site)','Travel insurance'],
   bring:['Hiking shoes','Rain jacket','Warm fleece, nights are cold']},
- {id:'turkestan',name:'Turkestan Silk Road',days:4,price:58000,start:'Turkestan',level:'Easy',tags:['history','photo','easy'],tag:'Silk Road history',scene:'city',
+ {id:'turkestan',photo:{file:'Mausoleum_of_Khoja_Ahmed_Yasavi_in_Turkestan,_Kazakhstan.jpg',alt:'Mausoleum of Khoja Ahmed Yasawi in Turkestan'},name:'Turkestan Silk Road',days:4,price:58000,start:'Turkestan',level:'Easy',tags:['history','photo','easy'],tag:'Silk Road history',scene:'city',
   summary:'The spiritual heart of Kazakhstan: the Mausoleum of Khoja Ahmed Yasawi, the ruins of ancient Sauran and Otrar, and evenings in the old town.',
   plan:[['Day 1','Arrival in Turkestan, hotel check-in, evening walk in the old town.'],['Day 2','Guided visit to the Mausoleum of Khoja Ahmed Yasawi and the city museum.'],['Day 3','Day trip to the ruins of Sauran and Otrar on the old Silk Road.'],['Day 4','Craft market and a farewell lunch, transfer to the airport or station.']],
   inc:['English-speaking guide','Airport or station transfers','3 nights hotel','Breakfasts and two dinners','All museum and site tickets'],
   exc:['Flights to Turkestan','Lunches on days 1–2','Travel insurance'],
   bring:['Clothing that covers shoulders and knees for the mausoleum','Sun hat','Water bottle']},
- {id:'burabay',name:'Burabay Lakes',days:2,price:32000,start:'Astana',level:'Easy',tags:['nature','lakes','easy'],tag:'Pine forest and lakes',scene:'forest',
+ {id:'burabay',photo:{file:'Казахстан._Боровое._Вид_на_озеро_с_пляжа.jpg',alt:'View of Lake Burabay from the beach'},name:'Burabay Lakes',days:2,price:32000,start:'Astana',level:'Easy',tags:['nature','lakes','easy'],tag:'Pine forest and lakes',scene:'forest',
   summary:'A weekend escape from Astana to pine forests, clear lakes and granite rocks. Easy walks, good food, a sauna in the evening.',
   plan:[['Day 1','Pickup in Astana and drive north. Walk to Lake Burabay viewpoints and the famous rock formations. Overnight at a lakeside resort.'],['Day 2','Morning boat ride or forest walk, lunch, and return to Astana by evening.']],
   inc:['English-speaking guide','Transport from Astana','1 night lakeside resort','Breakfast, lunch and dinner','Park entrance fees'],
@@ -560,6 +564,12 @@ function scene(kind,w=400,h=300,id=''){
   return `<svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs><linearGradient id="${g}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${P.sky[1]}"/><stop offset="1" stop-color="${P.sky[0]}"/></linearGradient></defs><rect width="${w}" height="${h}" fill="url(#${g})"/><circle cx="${w*.78}" cy="${h*.22}" r="${h*.08}" fill="${P.sun}" opacity=".9"/>${body}</svg>`;
 }
 
+/* ---------- real photos (Wikimedia Commons; the illustration stays underneath as a fallback) ---------- */
+const commonsImg=(f,w)=>`https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(f)}?width=${w}`;
+const commonsPage=f=>`https://commons.wikimedia.org/wiki/File:${encodeURIComponent(f)}`;
+function photo(t,w){return t.photo?`<img class="photo" src="${commonsImg(t.photo.file,w)}" alt="${esc(t.photo.alt)}" loading="lazy" onerror="const c=this.nextElementSibling;if(c&&c.classList.contains('credit'))c.remove();this.remove()">`:'';}
+function credit(t){return t.photo?`<a class="credit" href="${commonsPage(t.photo.file)}" target="_blank" rel="noopener">Photo: Wikimedia Commons</a>`:'';}
+
 /* ---------- i18n (key UI strings only in prototype) ---------- */
 const T={
  de:{navTours:'Touren',navPlan:'Reiseplaner',navTrust:'Warum wir',navMap:'360°-Karte',heroEyebrow:'Geführte Reisen durch Kasachstan',heroTitle:'Canyons, Bergseen und Städte der Seidenstraße. In zwei Minuten gebucht.',heroLead:'Klare Preise in Ihrer Währung, eine vollständige Leistungsliste und sichere Zahlung mit Ihrer eigenen Karte.',p1:'Zahlen mit Visa, Mastercard, Apple Pay',p2:'Kostenlose Stornierung bis 7 Tage',p3:'KI-Assistent rund um die Uhr',planEyebrow:'KI-Reiseplaner',planTitle:'Ihre Tage und Interessen',planDays:'Verfügbare Tage',planInt:'Ich interessiere mich für',toursEyebrow:'Unsere Routen',toursTitle:'Vier Reisen, jeweils ein klarer Preis',toursLead:'Jeder Preis gilt pro Person und enthält bereits Guide, Transport, Mahlzeiten und Eintritte.',trustEyebrow:'Warum wir',trustTitle:'Ein registriertes Unternehmen aus Astana',fab:'Fragen Sie Aru, unseren KI-Guide'},
@@ -575,7 +585,7 @@ $('#logo').onclick=()=>show('home');
 
 function renderHome(){
   $('#heroArt').innerHTML=scene('hero',1200,500,'h');
-  $('#tourGrid').innerHTML=TOURS.map(t=>`<button class="tour-card" data-tour="${t.id}"><div class="tour-art">${scene(t.scene,400,300,t.id)}<span class="badge">${esc(t.tag)}</span></div><div class="tour-body"><h3>${esc(t.name)}</h3><div class="tour-meta"><span>${t.days} days</span><span>from ${esc(t.start)}</span><span>${t.level}</span></div><div class="tour-price"><span class="muted" style="font-size:13px">per traveler</span><b class="num">${money(t.price)}</b></div></div></button>`).join('');
+  $('#tourGrid').innerHTML=TOURS.map(t=>`<button class="tour-card" data-tour="${t.id}"><div class="tour-art">${scene(t.scene,400,300,t.id)}${photo(t,640)}<span class="badge">${esc(t.tag)}</span></div><div class="tour-body"><h3>${esc(t.name)}</h3><div class="tour-meta"><span>${t.days} days</span><span>from ${esc(t.start)}</span><span>${t.level}</span></div><div class="tour-price"><span class="muted" style="font-size:13px">per traveler</span><b class="num">${money(t.price)}</b></div></div></button>`).join('');
   $('#guideList').innerHTML=GUIDES.map(g=>`<div class="guide"><span class="ava" style="background:${g.c}">${g.n[0]}</span><div><b>${g.n}</b><small>${g.l}</small></div></div>`).join('');
   $('#reviewList').innerHTML=REVIEWS.map(r=>`<div class="review"><header><b>${esc(r.who)}</b><span class="stars" aria-label="${r.s} of 5">${'★'.repeat(r.s)}${'☆'.repeat(5-r.s)}</span></header><p>${esc(r.t)}</p><span class="src">${esc(r.tour)} · verified booking</span></div>`).join('');
   plan();
@@ -599,7 +609,7 @@ $('#pResult').onclick=e=>{const b=e.target.closest('[data-open]');if(b)openTour(
 /* ---------- tour page ---------- */
 function openTour(id){
   const t=TOURS.find(x=>x.id===id);st.tour=t;
-  $('#dArt').innerHTML=scene(t.scene,800,400,'d'+t.id)+`<button class="preview-btn" id="pv">◎ See this route in 360°</button>`;
+  $('#dArt').innerHTML=scene(t.scene,800,400,'d'+t.id)+photo(t,1280)+credit(t)+`<button class="preview-btn" id="pv">◎ See this route in 360°</button>`;
   $('#pv').onclick=()=>openPano(t.id,1);
   $('#dName').textContent=t.name;$('#dSummary').textContent=t.summary;
   $('#dFacts').innerHTML=[`${t.days} days`,`Starts in ${t.start}`,`Level: ${t.level}`,'Small group, max 8','Guide languages: EN · DE · 中文'].map(f=>`<span class="fact">${f}</span>`).join('');
@@ -718,7 +728,7 @@ function renderBooking(){
 }
 function renderSummary(){
   const t=st.tour,d=st.date?new Date(st.date).toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'}):'Not chosen yet';
-  $('#bSummary').innerHTML=`<div class="tour-art" style="border-radius:12px;overflow:hidden;aspect-ratio:16/9">${scene(t.scene,400,225,'s'+t.id)}</div><b style="font-family:var(--display);font-weight:500">${esc(t.name)}</b><div class="sumrow"><span class="muted">Date</span><span>${d}</span></div><div class="sumrow"><span class="muted">Travelers</span><span class="num">${st.people} × ${money(t.price)}</span></div><div class="sumrow"><span class="muted">Booking fee</span><span>${money(0)}</span></div><div class="sumrow total"><span>Total</span><span class="num">${money(t.price*st.people)}</span></div><div style="font-size:13px" class="muted">Included: ${t.inc.slice(0,3).map(esc).join(', ')} and more.</div><div class="policy"><div><span class="tick">✓</span><span style="font-size:13px">Free cancellation until 7 days before</span></div></div>`;
+  $('#bSummary').innerHTML=`<div class="tour-art" style="border-radius:12px;overflow:hidden;aspect-ratio:16/9">${scene(t.scene,400,225,'s'+t.id)}${photo(t,640)}</div><b style="font-family:var(--display);font-weight:500">${esc(t.name)}</b><div class="sumrow"><span class="muted">Date</span><span>${d}</span></div><div class="sumrow"><span class="muted">Travelers</span><span class="num">${st.people} × ${money(t.price)}</span></div><div class="sumrow"><span class="muted">Booking fee</span><span>${money(0)}</span></div><div class="sumrow total"><span>Total</span><span class="num">${money(t.price*st.people)}</span></div><div style="font-size:13px" class="muted">Included: ${t.inc.slice(0,3).map(esc).join(', ')} and more.</div><div class="policy"><div><span class="tick">✓</span><span style="font-size:13px">Free cancellation until 7 days before</span></div></div>`;
 }
 function confirmBooking(){
   const t=st.tour,code='SR-'+Math.random().toString(36).slice(2,7).toUpperCase(),g=GUIDES.find(x=>x.t===t.id)||GUIDES[0];

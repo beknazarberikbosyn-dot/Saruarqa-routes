@@ -21,6 +21,10 @@ Also included: AI trip planner, scripted AI assistant "Aru", language (EN / DE /
 - Stop coordinates are approximate. Edit them in the `POINTS` object in `index.html`.
 - The map and panoramas need an internet connection and work on GitHub Pages or any normal web host.
 
+## Photos
+
+Tour photos are real pictures from Wikimedia Commons, loaded through `Special:FilePath` and credited with links to each file page (author and licence are listed there). If a photo cannot load, the page shows the original illustration instead.
+
 ## Important
 
 - This is a demo. Prices, reviews, guides and exchange rates are sample data.
