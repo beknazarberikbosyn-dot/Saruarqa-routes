@@ -199,8 +199,23 @@ section.block{padding-block:48px}
 .checklist input{accent-color:var(--ok);width:18px;height:18px}
 
 /* AI assistant */
-.fab{position:fixed;right:calc(18px + env(safe-area-inset-right,0px));bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:30;background:var(--sky);color:#fff;border:0;border-radius:999px;padding:14px 18px;font-weight:600;box-shadow:var(--shadow);cursor:pointer;display:flex;gap:8px;align-items:center}
-.chat{position:fixed;right:calc(18px + env(safe-area-inset-right,0px));bottom:calc(84px + env(safe-area-inset-bottom,0px));z-index:30;width:min(380px,calc(100vw - 32px));height:min(540px,calc(100vh - 140px));background:var(--surface);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);display:flex;flex-direction:column;overflow:hidden}
+.fab{position:fixed;right:calc(18px + env(safe-area-inset-right,0px));bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:30;background:none;border:0;padding:0;cursor:pointer;display:flex;gap:10px;align-items:flex-end;color:var(--ink)}
+.fab .hint{background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:14px 14px 4px 14px;padding:9px 13px;font-size:14px;font-weight:600;box-shadow:var(--shadow);margin-bottom:46px;white-space:nowrap}
+.ava-wrap{display:block;width:80px;height:80px;border-radius:50%;box-shadow:var(--shadow);border:3px solid var(--surface);animation:bob 3.2s ease-in-out infinite}
+.fab:hover .ava-wrap,.fab:focus-visible .ava-wrap{animation:wiggle .7s ease-in-out}
+.fab.thinking .ava-wrap{animation:bob .45s ease-in-out infinite}
+.fab[aria-expanded="true"] .hint{display:none}
+.camel{display:block;width:100%;height:100%}
+.camel .eyes{transform-box:fill-box;transform-origin:center;animation:blink 5s infinite}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+@keyframes wiggle{0%,100%{transform:rotate(0)}25%{transform:rotate(-8deg)}60%{transform:rotate(7deg)}}
+@keyframes blink{0%,93%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}
+.head-ava{display:block;width:42px;height:42px;flex:none;border-radius:50%;border:2px solid #fff}
+.who{display:flex;gap:10px;align-items:center}
+.row{display:flex;gap:8px;align-items:flex-end;align-self:flex-start;max-width:92%}
+.row .bot-ava{display:block;width:30px;height:30px;flex:none}
+.row .msg{max-width:none}
+.chat{position:fixed;right:calc(18px + env(safe-area-inset-right,0px));bottom:calc(112px + env(safe-area-inset-bottom,0px));z-index:30;width:min(380px,calc(100vw - 32px));height:min(540px,calc(100vh - 140px));background:var(--surface);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);display:flex;flex-direction:column;overflow:hidden}
 .chat-head{padding:14px 16px;background:var(--sky);color:#fff;display:flex;justify-content:space-between;align-items:center;gap:8px}
 .chat-head small{display:block;opacity:.85;font-size:12px}
 .chat-head button{background:none;border:0;color:#fff;font-size:22px;cursor:pointer;line-height:1}
@@ -257,6 +272,7 @@ footer{border-top:1px solid var(--line);padding-block:28px;font-size:13px;color:
   .prefs{margin-left:auto}
   .day{grid-template-columns:1fr;gap:4px}
 }
+@media (max-width:560px){.fab .hint{font-size:13px;margin-bottom:40px}.ava-wrap{width:68px;height:68px}.chat{bottom:calc(98px + env(safe-area-inset-bottom,0px))}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 </head>
@@ -467,9 +483,9 @@ footer{border-top:1px solid var(--line);padding-block:28px;font-size:13px;color:
 <footer><div class="wrap">Saryarqa Routes · Astana, Kazakhstan · Concept prototype for Zerttex Hackathon 2026. Not a real company.<p class="credits" style="margin-top:8px">Tour photos from Wikimedia Commons, used under their free licences; authors and licences are on each file page: <a href="https://commons.wikimedia.org/wiki/File:Charyn_Canyon,_Kazakhstan_02.jpg" target="_blank" rel="noopener">Charyn Canyon</a> · <a href="https://commons.wikimedia.org/wiki/File:Kolsai_lake.jpg" target="_blank" rel="noopener">Kolsai Lake</a> · <a href="https://commons.wikimedia.org/wiki/File:Mausoleum_of_Khoja_Ahmed_Yasavi_in_Turkestan,_Kazakhstan.jpg" target="_blank" rel="noopener">Mausoleum of Khoja Ahmed Yasawi</a> · <a href="https://commons.wikimedia.org/wiki/File:%D0%9A%D0%B0%D0%B7%D0%B0%D1%85%D1%81%D1%82%D0%B0%D0%BD._%D0%91%D0%BE%D1%80%D0%BE%D0%B2%D0%BE%D0%B5._%D0%92%D0%B8%D0%B4_%D0%BD%D0%B0_%D0%BE%D0%B7%D0%B5%D1%80%D0%BE_%D1%81_%D0%BF%D0%BB%D1%8F%D0%B6%D0%B0.jpg" target="_blank" rel="noopener">Lake Burabay</a>.</p></div></footer>
 
 <!-- AI assistant -->
-<button class="fab" id="fab" aria-expanded="false" aria-controls="chat"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg><span data-i18n="fab">Ask Aru, our AI guide</span></button>
+<button class="fab" id="fab" aria-expanded="false" aria-controls="chat" aria-label="Ask Aru the camel, our AI travel guide"><span class="hint" data-i18n="fab">Hi, I'm Aru! Ask me anything</span><span class="ava-wrap" data-camel></span></button>
 <div class="chat" id="chat" hidden role="dialog" aria-label="AI travel assistant">
-  <div class="chat-head"><div><b>Aru · AI travel assistant</b><small>Answers in seconds · a human takes over when needed</small></div><button id="chatClose" aria-label="Close">×</button></div>
+  <div class="chat-head"><div class="who"><span class="head-ava" data-camel></span><div><b>Aru the camel · AI travel guide</b><small>Answers in seconds · a human takes over when needed</small></div></div><button id="chatClose" aria-label="Close">×</button></div>
   <div class="msgs" id="msgs" aria-live="polite"></div>
   <div class="quick" id="quick"></div>
   <form id="chatForm"><input id="chatIn" placeholder="Ask anything about the trips…" autocomplete="off" aria-label="Your message"><button type="submit">Send</button></form>
@@ -572,8 +588,8 @@ function credit(t){return t.photo?`<a class="credit" href="${commonsPage(t.photo
 
 /* ---------- i18n (key UI strings only in prototype) ---------- */
 const T={
- de:{navTours:'Touren',navPlan:'Reiseplaner',navTrust:'Warum wir',navMap:'360°-Karte',heroEyebrow:'Geführte Reisen durch Kasachstan',heroTitle:'Canyons, Bergseen und Städte der Seidenstraße. In zwei Minuten gebucht.',heroLead:'Klare Preise in Ihrer Währung, eine vollständige Leistungsliste und sichere Zahlung mit Ihrer eigenen Karte.',p1:'Zahlen mit Visa, Mastercard, Apple Pay',p2:'Kostenlose Stornierung bis 7 Tage',p3:'KI-Assistent rund um die Uhr',planEyebrow:'KI-Reiseplaner',planTitle:'Ihre Tage und Interessen',planDays:'Verfügbare Tage',planInt:'Ich interessiere mich für',toursEyebrow:'Unsere Routen',toursTitle:'Vier Reisen, jeweils ein klarer Preis',toursLead:'Jeder Preis gilt pro Person und enthält bereits Guide, Transport, Mahlzeiten und Eintritte.',trustEyebrow:'Warum wir',trustTitle:'Ein registriertes Unternehmen aus Astana',fab:'Fragen Sie Aru, unseren KI-Guide'},
- zh:{navTours:'线路',navPlan:'行程规划',navTrust:'为什么信任我们',navMap:'360°地图',heroEyebrow:'哈萨克斯坦精品导游团',heroTitle:'峡谷、高山湖泊与丝绸之路古城，两分钟完成预订。',heroLead:'以您的货币显示清晰价格，完整列出包含项目，并可使用您自己的银行卡安全支付。',p1:'支持 Visa、Mastercard、Apple Pay、支付宝',p2:'出发前7天免费取消',p3:'24小时AI助手',planEyebrow:'AI行程规划',planTitle:'告诉我们您的天数和兴趣',planDays:'可用天数',planInt:'我感兴趣的是',toursEyebrow:'我们的线路',toursTitle:'四条线路，每条一个透明价格',toursLead:'价格按每位游客计算，已包含导游、交通、餐食和门票。',trustEyebrow:'为什么信任我们',trustTitle:'阿斯塔纳正规注册公司',fab:'咨询AI导游 Aru'}
+ de:{navTours:'Touren',navPlan:'Reiseplaner',navTrust:'Warum wir',navMap:'360°-Karte',heroEyebrow:'Geführte Reisen durch Kasachstan',heroTitle:'Canyons, Bergseen und Städte der Seidenstraße. In zwei Minuten gebucht.',heroLead:'Klare Preise in Ihrer Währung, eine vollständige Leistungsliste und sichere Zahlung mit Ihrer eigenen Karte.',p1:'Zahlen mit Visa, Mastercard, Apple Pay',p2:'Kostenlose Stornierung bis 7 Tage',p3:'KI-Assistent rund um die Uhr',planEyebrow:'KI-Reiseplaner',planTitle:'Ihre Tage und Interessen',planDays:'Verfügbare Tage',planInt:'Ich interessiere mich für',toursEyebrow:'Unsere Routen',toursTitle:'Vier Reisen, jeweils ein klarer Preis',toursLead:'Jeder Preis gilt pro Person und enthält bereits Guide, Transport, Mahlzeiten und Eintritte.',trustEyebrow:'Warum wir',trustTitle:'Ein registriertes Unternehmen aus Astana',fab:'Hallo, ich bin Aru! Frag mich alles'},
+ zh:{navTours:'线路',navPlan:'行程规划',navTrust:'为什么信任我们',navMap:'360°地图',heroEyebrow:'哈萨克斯坦精品导游团',heroTitle:'峡谷、高山湖泊与丝绸之路古城，两分钟完成预订。',heroLead:'以您的货币显示清晰价格，完整列出包含项目，并可使用您自己的银行卡安全支付。',p1:'支持 Visa、Mastercard、Apple Pay、支付宝',p2:'出发前7天免费取消',p3:'24小时AI助手',planEyebrow:'AI行程规划',planTitle:'告诉我们您的天数和兴趣',planDays:'可用天数',planInt:'我感兴趣的是',toursEyebrow:'我们的线路',toursTitle:'四条线路，每条一个透明价格',toursLead:'价格按每位游客计算，已包含导游、交通、餐食和门票。',trustEyebrow:'为什么信任我们',trustTitle:'阿斯塔纳正规注册公司',fab:'你好，我是骆驼 Aru！有问题尽管问'}
 };
 const EN={};document.querySelectorAll('[data-i18n]').forEach(el=>EN[el.dataset.i18n]=el.textContent);
 function applyLang(){document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.dataset.i18n;el.textContent=(T[st.lang]&&T[st.lang][k])||EN[k];});document.documentElement.lang=st.lang;}
@@ -756,11 +772,14 @@ const RULES=[
 ];
 const QUICK=['What is included?','Can I pay with my foreign card?','Do I need a visa?','Is this company trustworthy?','Which trip for 3 days?','Talk to a human'];
 const msgs=$('#msgs');
-function add(text,who){const m=document.createElement('div');m.className='msg '+who;m.textContent=text;msgs.appendChild(m);msgs.scrollTop=msgs.scrollHeight;return m;}
+/* Aru the camel: original illustrated avatar */
+const CAMEL=`<svg class="camel" viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="58" fill="#CDEBF3"/><path d="M44 80 L44 112 Q60 118 76 112 L76 80 Z" fill="#D9A86C"/><path d="M39 86 Q60 97 81 86 L83 97 Q60 107 37 97 Z" fill="#0A84A6"/><path d="M68 98 L79 114 L71 114 L63 100 Z" fill="#08708D"/><g fill="#E9B32C"><circle cx="47" cy="94" r="2.2"/><circle cx="60" cy="97.5" r="2.2"/><circle cx="73" cy="94" r="2.2"/></g><ellipse cx="37" cy="37" rx="7" ry="11" transform="rotate(-32 37 37)" fill="#C08A50"/><ellipse cx="83" cy="37" rx="7" ry="11" transform="rotate(32 83 37)" fill="#C08A50"/><ellipse cx="38" cy="38" rx="3.5" ry="7" transform="rotate(-32 38 38)" fill="#EBC093"/><ellipse cx="82" cy="38" rx="3.5" ry="7" transform="rotate(32 82 38)" fill="#EBC093"/><ellipse cx="60" cy="54" rx="27" ry="25" fill="#D9A86C"/><g fill="#A8763E"><circle cx="52" cy="31" r="6"/><circle cx="60" cy="28" r="7"/><circle cx="68" cy="31" r="6"/></g><ellipse cx="60" cy="70" rx="21" ry="15" fill="#F1D3A4"/><path d="M44 45 Q49 42 54 45" stroke="#7A5228" stroke-width="2.2" fill="none" stroke-linecap="round"/><path d="M66 45 Q71 42 76 45" stroke="#7A5228" stroke-width="2.2" fill="none" stroke-linecap="round"/><g class="eyes"><circle cx="49" cy="52" r="4.6" fill="#2A1E14"/><circle cx="71" cy="52" r="4.6" fill="#2A1E14"/><circle cx="50.6" cy="50.4" r="1.6" fill="#fff"/><circle cx="72.6" cy="50.4" r="1.6" fill="#fff"/></g><circle cx="40" cy="62" r="4.2" fill="#F2A08A" opacity=".65"/><circle cx="80" cy="62" r="4.2" fill="#F2A08A" opacity=".65"/><ellipse cx="54" cy="66" rx="2.6" ry="1.7" fill="#7A5228"/><ellipse cx="66" cy="66" rx="2.6" ry="1.7" fill="#7A5228"/><path d="M52 75 Q60 81.5 68 75" stroke="#7A5228" stroke-width="2.4" fill="none" stroke-linecap="round"/></svg>`;
+document.querySelectorAll('[data-camel]').forEach(el=>el.innerHTML=CAMEL);
+function add(text,who){const m=document.createElement('div');m.className='msg '+who;m.textContent=text;let node=m;if(who.startsWith('bot')){node=document.createElement('div');node.className='row';node.innerHTML=`<span class="bot-ava">${CAMEL}</span>`;node.appendChild(m);}msgs.appendChild(node);msgs.scrollTop=msgs.scrollHeight;return node;}
 function reply(q){const r=RULES.find(([re])=>re.test(q));return r?r[1]():'Good question. In the full product I would answer this with an AI model trained on our trip details. In this demo, try one of the suggested questions below, or ask for a human.';}
-function say(q){add(q,'me');const t=add('Aru is typing…','bot typing');setTimeout(()=>{t.remove();add(reply(q),'bot');},650);}
+function say(q){add(q,'me');const t=add('Aru is thinking…','bot typing');$('#fab').classList.add('thinking');setTimeout(()=>{t.remove();add(reply(q),'bot');$('#fab').classList.remove('thinking');},750);}
 let opened=false;
-function openChat(){$('#chat').hidden=false;$('#fab').setAttribute('aria-expanded','true');if(!opened){opened=true;add('Hi, I\'m Aru, the Saryarqa Routes travel assistant. I can explain what\'s included, how to pay with a foreign card, and which trip suits your days.','bot');}$('#chatIn').focus();}
+function openChat(){$('#chat').hidden=false;$('#fab').setAttribute('aria-expanded','true');if(!opened){opened=true;add('Salem! I\'m Aru, the Saryarqa Routes camel and your travel guide. I can explain what\'s included, how to pay with a foreign card, and which trip suits your days.','bot');}$('#chatIn').focus();}
 $('#fab').onclick=()=>$('#chat').hidden?openChat():($('#chat').hidden=true,$('#fab').setAttribute('aria-expanded','false'));
 $('#chatClose').onclick=()=>{$('#chat').hidden=true;$('#fab').setAttribute('aria-expanded','false');};
 $('#quick').innerHTML=QUICK.map(q=>`<button>${q}</button>`).join('');

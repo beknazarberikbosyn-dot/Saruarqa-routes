@@ -11,7 +11,7 @@ Saryarqa Routes is a fictional Astana tour company from the case. The prototype 
 | "My foreign card does not work" | Payment options: Visa / Mastercard, Apple Pay, Google Pay, Alipay |
 | "I do not know what is included" | "Included / Not included" on every tour page and in the confirmation |
 
-Also included: AI trip planner, scripted AI assistant "Aru", language (EN / DE / 中文) and currency (USD / EUR / CNY / KZT) switch.
+Also included: AI trip planner, AI assistant "Aru the camel" (an animated avatar that opens a chat window when tapped; scripted answers in the demo), language (EN / DE / 中文) and currency (USD / EUR / CNY / KZT) switch.
 
 ## 360° route map
 
