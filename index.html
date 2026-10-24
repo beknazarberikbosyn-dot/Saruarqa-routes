@@ -120,8 +120,14 @@ section.block{padding-block:48px}
 .policy div{display:flex;gap:10px;align-items:flex-start}
 .tick{flex:none;width:22px;height:22px;border-radius:50%;background:var(--ok-soft);color:var(--ok);display:grid;place-items:center;font-size:13px;font-weight:700}
 .cross{background:var(--surface-2);color:var(--muted)}
-.reviews{display:grid;gap:12px}
-.review{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;display:grid;gap:8px}
+.reviews{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;align-items:start}
+.rating-sum{display:flex;align-items:center;gap:12px}
+.rating-sum b{font-family:var(--display);font-size:40px;font-weight:500;line-height:1}
+.rating-sum small{display:block;color:var(--muted);font-size:13px}
+.legend button[aria-pressed="true"]{border-color:var(--sky);background:var(--sky-soft);font-weight:600}
+.trust .guides{grid-template-columns:1fr}
+.tour-tag{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:6px}
+.review{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:16px;display:grid;gap:8px}
 .review header{all:unset;display:flex;justify-content:space-between;gap:8px;font-size:14px;flex-wrap:wrap}
 .stars{color:var(--gold);letter-spacing:2px}
 .src{font-size:12px;color:var(--muted)}
@@ -258,6 +264,7 @@ section.block{padding-block:48px}
 footer{border-top:1px solid var(--line);padding-block:28px;font-size:13px;color:var(--muted)}
 
 @media (max-width:960px){
+  .reviews{grid-template-columns:repeat(2,minmax(0,1fr))}
   .tours,.fixes{grid-template-columns:1fr 1fr}
   .hero .wrap{grid-template-columns:1fr}
   .detail,.done-grid,.trust{grid-template-columns:1fr}
@@ -265,6 +272,7 @@ footer{border-top:1px solid var(--line);padding-block:28px;font-size:13px;color:
   .guides{grid-template-columns:1fr 1fr}
 }
 @media (max-width:560px){
+  .reviews{grid-template-columns:1fr}
   .tours,.fixes,.incl,.grid2,.guides{grid-template-columns:1fr}
   .dates,.pays{grid-template-columns:1fr 1fr}
   .stats{grid-template-columns:1fr 1fr 1fr}
@@ -386,13 +394,23 @@ footer{border-top:1px solid var(--line);padding-block:28px;font-size:13px;color:
           <div><span class="tick">✓</span><span><b>Secure payment.</b> Card details go to the payment provider. We never see or store them.</span></div>
           <div><span class="tick">✓</span><span><b>Licensed tour operator.</b> Licence number shown on every confirmation (sample: TO-000000).</span></div>
         </div>
-        <h3 style="margin-top:24px">Meet some of our guides</h3>
-        <div class="guides" id="guideList"></div>
       </div>
       <div>
-        <div class="reviews" id="reviewList"></div>
-        <p class="src" style="margin-top:8px">Sample reviews for the prototype. In the real product they are pulled from Google and TripAdvisor.</p>
+        <h3>Meet some of our guides</h3>
+        <div class="guides" id="guideList" style="margin-top:12px"></div>
       </div>
+    </div>
+  </section>
+
+  <section class="block" id="reviews" style="background:var(--surface);border-block:1px solid var(--line)">
+    <div class="wrap">
+      <div class="section-head">
+        <div><div class="eyebrow">What travelers say</div><h2>Guests from abroad on our trips</h2></div>
+        <div class="rating-sum" id="ratingSum"></div>
+      </div>
+      <div class="legend" id="revFilter"></div>
+      <div class="reviews" id="reviewList"></div>
+      <p class="src" style="margin-top:14px">Sample reviews written for this prototype; Saryarqa Routes is a fictional company. In the real product, reviews are pulled from Google and Tripadvisor.</p>
     </div>
   </section>
 </div>
@@ -544,9 +562,18 @@ const GUIDES=[
  {n:'Nurlan',l:'中文, English',c:'#2E7D5B',t:'turkestan'}
 ];
 const REVIEWS=[
- {who:'Sophie, Germany',tour:'Kolsai Lakes',s:5,t:'Booking took two minutes and my German card worked straight away. The guide explained everything about the lakes.'},
- {who:'Wei, China',tour:'Turkestan Silk Road',s:5,t:'The page listed exactly what was included, so there were no surprises. Nurlan spoke Chinese, which made it easy.'},
- {who:'James, UK',tour:'Charyn Canyon',s:4,t:'Great canyon and a friendly guesthouse. Pickup was on time. I would book again.'}
+ {who:'Sophie, Germany',tour:'kolsai',s:5,t:'Booking took two minutes and my German card worked straight away. The guide explained everything about the lakes.'},
+ {who:'Li Na, China',tour:'charyn',s:5,t:'I found the trip on Xiaohongshu and paid with Alipay in one minute. Sunset at the Valley of Castles was the best photo of my whole trip.'},
+ {who:'Min-jun, South Korea',tour:'kolsai',s:5,t:'Aru answered my questions at 2 a.m. Seoul time. Lake Kaindy with the sunken trees looks unreal.'},
+ {who:'Wei, China',tour:'turkestan',s:5,t:'The page listed exactly what was included, so there were no surprises. Nurlan spoke Chinese, which made it easy.'},
+ {who:'James, UK',tour:'charyn',s:4,t:'Great canyon and a friendly guesthouse. Pickup was on time. I would book again.'},
+ {who:'Chen Hao, China',tour:'burabay',s:4,t:'An easy weekend from Astana: clear lakes, pine forest and fresh air. The resort food was simple but good.'},
+ {who:'Anna, Poland',tour:'charyn',s:5,t:'A small group of six, so the guide had time for everyone. The price in euros was exactly what I paid.'},
+ {who:'Rahul, India',tour:'turkestan',s:4,t:'The mausoleum is stunning and our guide knew so much history. Summer was very hot, so I would go in spring or autumn.'},
+ {who:'Yuki, Japan',tour:'kolsai',s:3,t:'Beautiful lakes, but the mountain road to Saty is long and bumpy. Bring motion-sickness tablets if you need them.'},
+ {who:'Zhang Wei, China',tour:'turkestan',s:5,t:'My parents worried about the language. The Chinese-speaking guide and WeChat messages before the trip made them relaxed.'},
+ {who:'Lukas, Germany',tour:'burabay',s:5,t:'Booked on Thursday, travelled on Saturday. Instant confirmation by email, and the guide messaged us the pickup time.'},
+ {who:'Ji-woo, South Korea',tour:'charyn',s:4,t:'Amazing walk through the canyon. I only wish the trip were one day longer to see more of the river.'}
 ];
 
 /* ---------- state ---------- */
@@ -603,10 +630,21 @@ function renderHome(){
   $('#heroArt').innerHTML=scene('hero',1200,500,'h');
   $('#tourGrid').innerHTML=TOURS.map(t=>`<button class="tour-card" data-tour="${t.id}"><div class="tour-art">${scene(t.scene,400,300,t.id)}${photo(t,640)}<span class="badge">${esc(t.tag)}</span></div><div class="tour-body"><h3>${esc(t.name)}</h3><div class="tour-meta"><span>${t.days} days</span><span>from ${esc(t.start)}</span><span>${t.level}</span></div><div class="tour-price"><span class="muted" style="font-size:13px">per traveler</span><b class="num">${money(t.price)}</b></div></div></button>`).join('');
   $('#guideList').innerHTML=GUIDES.map(g=>`<div class="guide"><span class="ava" style="background:${g.c}">${g.n[0]}</span><div><b>${g.n}</b><small>${g.l}</small></div></div>`).join('');
-  $('#reviewList').innerHTML=REVIEWS.map(r=>`<div class="review"><header><b>${esc(r.who)}</b><span class="stars" aria-label="${r.s} of 5">${'★'.repeat(r.s)}${'☆'.repeat(5-r.s)}</span></header><p>${esc(r.t)}</p><span class="src">${esc(r.tour)} · verified booking</span></div>`).join('');
+  renderReviews();
   plan();
 }
 $('#tourGrid').addEventListener('click',e=>{const c=e.target.closest('[data-tour]');if(c)openTour(c.dataset.tour);});
+
+/* ---------- reviews ---------- */
+let revTour='all';
+const stars=n=>`<span class="stars" aria-label="${n} of 5">${'★'.repeat(Math.round(n))}${'☆'.repeat(5-Math.round(n))}</span>`;
+function renderReviews(){
+  const avg=REVIEWS.reduce((a,r)=>a+r.s,0)/REVIEWS.length;
+  $('#ratingSum').innerHTML=`<b class="num">${avg.toFixed(1)}</b><div>${stars(avg)}<small>${REVIEWS.length} sample reviews</small></div>`;
+  $('#revFilter').innerHTML=[['all','All trips',REVIEWS.length],...TOURS.map(t=>[t.id,t.name,REVIEWS.filter(r=>r.tour===t.id).length])].map(([id,n,c])=>`<button data-rev="${id}" aria-pressed="${revTour===id}">${id==='all'?'':`<span class="dot" style="background:${COLORS[id]}"></span>`}${esc(n)} · ${c}</button>`).join('');
+  $('#reviewList').innerHTML=REVIEWS.filter(r=>revTour==='all'||r.tour===revTour).map(r=>{const t=TOURS.find(x=>x.id===r.tour);return `<div class="review"><header><b>${esc(r.who)}</b>${stars(r.s)}</header><p>${esc(r.t)}</p><span class="tour-tag"><span class="dot" style="background:${COLORS[r.tour]}"></span>${esc(t.name)} · sample review</span></div>`;}).join('');
+}
+$('#revFilter').onclick=e=>{const b=e.target.closest('[data-rev]');if(!b)return;revTour=b.dataset.rev;renderReviews();};
 
 /* ---------- planner ---------- */
 function plan(){
