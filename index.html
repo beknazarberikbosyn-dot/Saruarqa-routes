@@ -551,7 +551,7 @@ footer{border-top:1px solid var(--line);padding-block:28px;font-size:13px;color:
 </div>
 </main>
 
-<footer><div class="wrap">Saryarqa Routes · Astana, Kazakhstan · Concept prototype for Zerttex Hackathon 2026. Not a real company.<p class="credits" style="margin-top:8px">Photos from Wikimedia Commons, used under their free licences; authors and licences are on each file page: <a href="https://commons.wikimedia.org/wiki/File:Big_Almaty_Lake_(2511_m)_and_snowy_peak_of_Soviets_(4317_m)_in_September,_2,_2017.jpg" target="_blank" rel="noopener">Big Almaty Lake</a> · <a href="https://commons.wikimedia.org/wiki/File:Charyn_Canyon,_Kazakhstan_02.jpg" target="_blank" rel="noopener">Charyn Canyon</a> · <a href="https://commons.wikimedia.org/wiki/File:Kolsai_lake.jpg" target="_blank" rel="noopener">Kolsai Lake</a> · <a href="https://commons.wikimedia.org/wiki/File:Mausoleum_of_Khoja_Ahmed_Yasavi_in_Turkestan,_Kazakhstan.jpg" target="_blank" rel="noopener">Mausoleum of Khoja Ahmed Yasawi</a> · <a href="https://commons.wikimedia.org/wiki/File:%D0%9A%D0%B0%D0%B7%D0%B0%D1%85%D1%81%D1%82%D0%B0%D0%BD._%D0%91%D0%BE%D1%80%D0%BE%D0%B2%D0%BE%D0%B5._%D0%92%D0%B8%D0%B4_%D0%BD%D0%B0_%D0%BE%D0%B7%D0%B5%D1%80%D0%BE_%D1%81_%D0%BF%D0%BB%D1%8F%D0%B6%D0%B0.jpg" target="_blank" rel="noopener">Lake Burabay</a>.</p></div></footer>
+<footer><div class="wrap">Saryarqa Routes · Astana, Kazakhstan · Concept prototype for Zerttex Hackathon 2026. Not a real company.<p class="credits" style="margin-top:8px">Photos from Wikimedia Commons, used under their free licences; authors and licences are on each file page: <a href="https://commons.wikimedia.org/wiki/File:Big_Almaty_Lake_(2511_m)_and_snowy_peak_of_Soviets_(4317_m)_in_September,_2,_2017.jpg" target="_blank" rel="noopener">Big Almaty Lake</a> · <a href="https://commons.wikimedia.org/wiki/File:Charyn_Canyon,_Kazakhstan_02.jpg" target="_blank" rel="noopener">Charyn Canyon</a> · <a href="https://commons.wikimedia.org/wiki/File:Kolsai_lake.jpg" target="_blank" rel="noopener">Kolsai Lake</a> · <a href="https://commons.wikimedia.org/wiki/File:Mausoleum_of_Khoja_Ahmed_Yasavi_in_Turkestan,_Kazakhstan.jpg" target="_blank" rel="noopener">Mausoleum of Khoja Ahmed Yasawi</a> · <a href="https://commons.wikimedia.org/wiki/File:%D0%91%D0%BE%D1%80%D0%BE%D0%B2%D0%BE%D0%B5-201007.jpg" target="_blank" rel="noopener">Lake Burabay</a>. Gallery photos link to their own file pages.</p></div></footer>
 
 <!-- AI assistant -->
 <button class="fab" id="fab" aria-expanded="false" aria-controls="chat" aria-label="Ask Aru the camel, our AI travel guide"><span class="hint" data-i18n="fab">Hi, I'm Aru! Ask me anything</span><span class="ava-wrap" data-camel></span></button>
@@ -621,7 +621,7 @@ const TOURS=[
   inc:['English-speaking guide','Airport or station transfers','3 nights hotel','Breakfasts and two dinners','All museum and site tickets'],
   exc:['Flights to Turkestan','Lunches on days 1–2','Travel insurance'],
   bring:['Clothing that covers shoulders and knees for the mausoleum','Sun hat','Water bottle']},
- {id:'burabay',photo:{file:'Казахстан._Боровое._Вид_на_озеро_с_пляжа.jpg',alt:'View of Lake Burabay from the beach'},name:'Burabay Lakes',days:2,price:32000,start:'Astana',level:'Easy',tags:['nature','lakes','easy'],tag:'Pine forest and lakes',scene:'forest',
+ {id:'burabay',photo:{file:'Боровое-201007.jpg',alt:'Okzhetpes rock above Lake Burabay'},name:'Burabay Lakes',days:2,price:32000,start:'Astana',level:'Easy',tags:['nature','lakes','easy'],tag:'Pine forest and lakes',scene:'forest',
   summary:'A weekend escape from Astana to pine forests, clear lakes and granite rocks. Easy walks, good food, a sauna in the evening.',
   plan:[['Day 1','Pickup in Astana and drive north. Walk to Lake Burabay viewpoints and the famous rock formations. Overnight at a lakeside resort.'],['Day 2','Morning boat ride or forest walk, lunch, and return to Astana by evening.']],
   inc:['English-speaking guide','Transport from Astana','1 night lakeside resort','Breakfast, lunch and dinner','Park entrance fees'],
@@ -650,7 +650,7 @@ const GALLERY={
  charyn:['Charyn_Canyon,_Kazakhstan_03.jpg','Charyn_Canyon,_Kazakhstan_04.jpg','Charyn_Canyon.jpg','Sharyn_canyon_46.jpg','Charyn_Canyon_-_3.jpg'],
  kolsai:['Lower_Kolsay_Lake_in_April.jpg','Scenic_Lake_Kaindy.jpg','IMG_9366-Kaindy-e.jpg'],
  turkestan:['Mausoleum_of_Khoja_Ahmed_Yasawi_in_Turkistan_9.jpg','Turkestan.jpg','Маузолеј_Ходже_Ахмеда_Јасавија_(град_Туркестан,_Казахстан).jpg'],
- burabay:['Burabay_020000,_Kazakhstan_-_panoramio_(2).jpg','Necklace_of_Mermaid.jpg']
+ burabay:['"The_Sphinx"_Rock_Formation_at_Borovoye,_Kazakhstan_(7379961056).jpg','Zhumbaktas_rock.jpg','Казахстан._Боровое._Вид_на_озеро_с_пляжа.jpg']
 };
 const galleryOf=t=>[t.photo.file,...(GALLERY[t.id]||[])];
 
