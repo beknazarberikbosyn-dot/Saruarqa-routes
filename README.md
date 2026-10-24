@@ -11,7 +11,15 @@ Saryarqa Routes is a fictional Astana tour company from the case. The prototype 
 | "My foreign card does not work" | Payment options: Visa / Mastercard, Apple Pay, Google Pay, Alipay |
 | "I do not know what is included" | "Included / Not included" on every tour page and in the confirmation |
 
-Also included: AI trip planner, scripted AI assistant "Aru", 360° route preview, language (EN / DE / 中文) and currency (USD / EUR / CNY / KZT) switch.
+Also included: AI trip planner, scripted AI assistant "Aru", language (EN / DE / 中文) and currency (USD / EUR / CNY / KZT) switch.
+
+## 360° route map
+
+- An interactive map (Leaflet + OpenStreetMap) shows all four routes with numbered stops, plus a route map on every tour page.
+- Tapping a stop opens a real 360° panorama from Google Street View at that point, with previous / next stop buttons.
+- "Open 360° in Google Maps" opens the nearest 360° photo in Google Maps, which helps where Street View has no imagery.
+- Stop coordinates are approximate. Edit them in the `POINTS` object in `index.html`.
+- The map and panoramas need an internet connection and work on GitHub Pages or any normal web host.
 
 ## Important
 
