@@ -130,7 +130,7 @@ section.block{padding-block:48px}
 .rating-sum b{font-family:var(--display);font-size:40px;font-weight:500;line-height:1}
 .rating-sum small{display:block;color:var(--muted);font-size:13px}
 .legend button[aria-pressed="true"]{border-color:var(--sky);background:var(--sky-soft);font-weight:600}
-.trust .guides{grid-template-columns:1fr}
+.trust .guides{grid-template-columns:1fr 1fr}
 .tour-tag{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:6px}
 .review{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:16px;display:grid;gap:8px}
 .review header{all:unset;display:flex;justify-content:space-between;gap:8px;font-size:14px;flex-wrap:wrap}
@@ -241,6 +241,52 @@ section.block{padding-block:48px}
 .chat input{flex:1;border:1.5px solid var(--line);border-radius:999px;padding:10px 14px;background:var(--surface);min-width:0}
 .chat form button{border:0;background:var(--gold);color:var(--on-gold);border-radius:999px;padding:0 16px;font-weight:600;cursor:pointer}
 
+.thumbs{display:flex;gap:8px;margin-top:10px;overflow-x:auto;padding-bottom:4px}
+.thumb{flex:none;width:96px;height:68px;border-radius:10px;overflow:hidden;border:2px solid transparent;padding:0;cursor:pointer;background:var(--surface-2)}
+.thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.thumb:hover,.thumb:focus-visible{border-color:var(--sky)}
+.gal-open{position:absolute;right:12px;top:12px;background:rgba(10,25,40,.75);color:#fff;border:0;border-radius:999px;padding:8px 14px;font-size:13px;cursor:pointer}
+.sec2{margin-top:32px;font-size:22px}
+.gcards,.hcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;margin-top:12px}
+.gcard,.hcard{border:1.5px solid var(--line);border-radius:14px;padding:14px;display:grid;gap:10px;background:var(--surface);align-content:start}
+.gcard.on,.hcard.on{border-color:var(--sky);box-shadow:0 0 0 3px var(--sky-soft)}
+.gtop,.htop{display:flex;gap:10px;align-items:flex-start}
+.gtop small,.htop small{display:block;color:var(--muted);font-size:12.5px}
+.gcard p{font-size:14px;margin:0}
+.gact{display:flex;gap:8px;flex-wrap:wrap}
+.btn.sm{padding:8px 14px;font-size:14px}
+.grate{font-size:13px}
+.hnum{flex:none;width:26px;height:26px;border-radius:50%;background:var(--sky);color:#fff;display:grid;place-items:center;font-size:13px;font-weight:700}
+.hprice{margin-left:auto;font-size:12.5px;font-weight:700;color:var(--sky);text-align:right;max-width:9.5em}
+.rates{display:flex;gap:6px;flex-wrap:wrap}
+.rate{display:inline-flex;gap:6px;align-items:center;background:var(--surface-2);border-radius:8px;padding:4px 8px;font-size:12.5px}
+.rate i{font-style:normal;color:var(--muted)}
+details summary{cursor:pointer;font-size:14px;font-weight:600;color:var(--sky)}
+.svc{width:100%;border-collapse:collapse;margin-top:6px;font-size:13.5px}
+.svc td{padding:5px 0;border-bottom:1px solid var(--line)}
+.svc td:last-child{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums;padding-left:8px}
+#hotelMap{margin-top:12px}
+.lb{position:relative;width:min(1100px,100%);display:grid;gap:10px}
+.lb img{width:100%;max-height:78vh;object-fit:contain;border-radius:12px;background:#000}
+.lb-btn{position:absolute;top:calc(50% - 40px);width:48px;height:48px;border-radius:50%;border:0;background:rgba(255,255,255,.92);color:#13283D;font-size:30px;line-height:1;cursor:pointer}
+.lb-prev{left:10px}.lb-next{right:10px}
+.lb-bar{display:flex;justify-content:space-between;align-items:center;gap:10px;color:#fff;font-size:14px;flex-wrap:wrap}
+.lb-bar a{color:#fff}
+.gm{max-width:620px}
+.grlist{padding:0 18px 8px;overflow-y:auto;display:grid;gap:10px}
+.trow{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,.5fr) minmax(0,1fr) auto;gap:10px;align-items:end;padding:12px 0;border-bottom:1px solid var(--line)}
+.tcat{display:flex;gap:6px;align-items:center;padding-bottom:8px}
+.catbadge{background:var(--sky-soft);color:var(--ink);border-radius:999px;padding:5px 10px;font-size:12.5px;font-weight:600;white-space:nowrap}
+.trm{border:0;background:none;font-size:22px;cursor:pointer;color:var(--muted);padding:0 4px}
+.gnotes{background:var(--surface-2);border-radius:12px;padding:12px 14px;font-size:14px}
+.gnotes h4{margin:0 0 6px;font-size:14px}
+.gnotes ul{margin:0;padding-left:18px;display:grid;gap:4px}
+.opts{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}
+.opt{border:1.5px solid var(--line);background:var(--surface);border-radius:12px;padding:12px;text-align:left;cursor:pointer;display:grid;gap:3px}
+.opt[aria-pressed="true"]{border-color:var(--sky);background:var(--sky-soft)}
+.opt small{color:var(--muted);font-size:12.5px}
+.err{color:#B3261E;font-size:14px;font-weight:600}
+
 /* route maps (Leaflet) */
 .map{height:440px;border-radius:var(--r);border:1px solid var(--line);overflow:hidden;position:relative;z-index:0;isolation:isolate;background:var(--surface-2)}
 .map-sm{height:320px;margin-top:12px}
@@ -277,6 +323,8 @@ footer{border-top:1px solid var(--line);padding-block:28px;font-size:13px;color:
   .guides{grid-template-columns:1fr 1fr}
 }
 @media (max-width:560px){
+  .trow{grid-template-columns:1fr 1fr}
+  .trow .field:first-child{grid-column:1/-1}
   .reviews{grid-template-columns:1fr}
   .tours,.incl,.grid2,.guides{grid-template-columns:1fr}
   .dates,.pays{grid-template-columns:1fr 1fr}
@@ -418,6 +466,7 @@ footer{border-top:1px solid var(--line);padding-block:28px;font-size:13px;color:
     <div class="detail">
       <div>
         <div class="detail-art" id="dArt"></div>
+        <div class="thumbs" id="dThumbs" aria-label="Tour photos"></div>
         <h1 id="dName"></h1>
         <p class="muted" id="dSummary" style="margin-top:8px;max-width:62ch"></p>
         <div class="facts" id="dFacts"></div>
@@ -426,6 +475,14 @@ footer{border-top:1px solid var(--line);padding-block:28px;font-size:13px;color:
         <div class="map map-sm" id="tourMap" role="region" aria-label="Map of this tour's route"></div>
         <h2 style="margin-top:32px;font-size:22px">Day by day</h2>
         <div class="days" id="dDays"></div>
+        <h2 class="sec2">Choose your guide</h2>
+        <p class="muted" style="margin-top:6px">All guides are licensed. Read what travelers say and pick the one you like.</p>
+        <div class="gcards" id="dGuides"></div>
+        <h2 class="sec2">Where you'll stay</h2>
+        <p class="muted" style="margin-top:6px" id="dStayNote"></p>
+        <div class="map map-sm" id="hotelMap" role="region" aria-label="Map of places to stay"></div>
+        <div class="hcards" id="dHotels"></div>
+        <p class="src" id="dHotelLinks" style="margin-top:10px"></p>
         <div class="incl">
           <div><h3>Included</h3><ul id="dInc"></ul></div>
           <div><h3>Not included</h3><ul id="dExc"></ul></div>
@@ -521,6 +578,25 @@ footer{border-top:1px solid var(--line);padding-block:28px;font-size:13px;color:
   </div>
 </div>
 
+<!-- photo lightbox -->
+<div class="modal" id="lightbox" hidden role="dialog" aria-label="Tour photos">
+  <div class="lb">
+    <img id="lbImg" alt="">
+    <button class="lb-btn lb-prev" id="lbPrev" aria-label="Previous photo">‹</button>
+    <button class="lb-btn lb-next" id="lbNext" aria-label="Next photo">›</button>
+    <div class="lb-bar"><span id="lbCount" class="num"></span><a id="lbCredit" href="https://commons.wikimedia.org" target="_blank" rel="noopener">Photo: Wikimedia Commons</a><button class="btn btn-gold sm" id="lbClose">Close</button></div>
+  </div>
+</div>
+
+<!-- guide reviews -->
+<div class="modal" id="gModal" hidden role="dialog" aria-modal="true" aria-labelledby="grTitle">
+  <div class="modal-box gm">
+    <div class="modal-head"><div><h3 id="grTitle"></h3><div id="grSub" class="muted" style="font-size:14px;margin-top:4px"></div></div><button id="grClose" aria-label="Close reviews">×</button></div>
+    <div class="grlist" id="grList"></div>
+    <div class="modal-foot"><span class="src">Sample reviews for the prototype.</span><button class="btn btn-gold" id="grPick"></button></div>
+  </div>
+</div>
+
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
 /* ---------- data ---------- */
@@ -552,11 +628,55 @@ const TOURS=[
   exc:['Flights to Astana','Spa and sauna','Travel insurance'],
   bring:['Walking shoes','Swimsuit in summer','Warm jacket in spring and autumn']}
 ];
+/* ---------- guides (sample people; reviews are sample data for the prototype) ---------- */
 const GUIDES=[
- {n:'Aigerim',l:'English, Russian, Kazakh',c:'#0A84A6',t:'charyn'},
- {n:'Dauren',l:'English, German',c:'#1E3A5F',t:'kolsai'},
- {n:'Nurlan',l:'中文, English',c:'#0B5D7A',t:'turkestan'}
+ {id:'aigerim',n:'Aigerim',l:'English, Russian, Kazakh',c:'#0A84A6',years:7,tours:['charyn','kolsai'],bio:'Grew up in Almaty and knows every trail around Charyn and Kolsai.',
+  reviews:[{who:'Sophie, Germany',s:5,t:'Patient, funny and always one step ahead with the timing.'},{who:'James, UK',s:5,t:'Knew the best viewpoints before the crowds arrived.'},{who:'Li Na, China',s:5,t:'Took great photos of us and explained the geology simply.'},{who:'Anna, Poland',s:4,t:'Very kind; the drive was long but she kept it interesting.'},{who:'Tom, Australia',s:5,t:'Felt like travelling with a local friend.'},{who:'Hana, Czechia',s:5,t:'Great stories about Kazakh traditions over dinner.'}]},
+ {id:'nurlan',n:'Nurlan',l:'中文, English',c:'#0B5D7A',years:9,tours:['turkestan','charyn'],bio:'Studied in Xi\'an; a history graduate and a Silk Road enthusiast.',
+  reviews:[{who:'Wei, China',s:5,t:'Explained the mausoleum history in perfect Chinese.'},{who:'Zhang Wei, China',s:5,t:'My parents loved him; very respectful and calm.'},{who:'Rahul, India',s:4,t:'Deep knowledge, sometimes a lot of dates to remember.'},{who:'Chen Hao, China',s:5,t:'Helped us pay with Alipay at the craft market.'},{who:'Mei, Singapore',s:5,t:'Flexible with our schedule and very punctual.'},{who:'Liu Yang, China',s:5,t:'Best guide of our Central Asia trip.'}]},
+ {id:'dauren',n:'Dauren',l:'English, German',c:'#1E3A5F',years:6,tours:['kolsai','burabay','turkestan'],bio:'Former mountain rescuer; safety first, good jokes second.',
+  reviews:[{who:'Lukas, Germany',s:5,t:'Spoke excellent German and planned every stop well.'},{who:'Sophie, Germany',s:5,t:'Felt very safe on the mountain road.'},{who:'Peter, Austria',s:4,t:'Great hikes; would have liked a bit more free time.'},{who:'Emma, Netherlands',s:5,t:'Knew the names of every plant and bird.'},{who:'Jonas, Switzerland',s:5,t:'Calm and professional, even in the rain.'},{who:'Clara, Germany',s:4,t:'Very good guide, a little fast on the walks.'}]},
+ {id:'madina',n:'Madina',l:'中文, Russian',c:'#4F9DBA',years:4,tours:['kolsai','burabay'],bio:'Photographer and lake lover; knows the quietest spots.',
+  reviews:[{who:'Li Na, China',s:5,t:'Found the perfect spot for sunrise photos at Kaindy.'},{who:'Wang Fang, China',s:5,t:'Translated everything and helped with WeChat updates.'},{who:'Yuki, Japan',s:4,t:'Lovely guide; the road was bumpy but she checked on us.'},{who:'Xu Ming, China',s:5,t:'Very warm and attentive to our children.'},{who:'Olga, Russia',s:5,t:'Great Russian too, and good restaurant tips.'},{who:'Chen Jie, China',s:5,t:'Made our honeymoon trip special.'}]},
+ {id:'arman',n:'Arman',l:'English, 中文',c:'#2E6F8E',years:5,tours:['turkestan'],bio:'Born in Turkestan; knows the old town and its craftsmen personally.',
+  reviews:[{who:'Rahul, India',s:5,t:'Took us to a local family for tea; unforgettable.'},{who:'Zhao Lei, China',s:5,t:'Good Chinese and great knowledge of Sauran.'},{who:'Sarah, USA',s:4,t:'Very informative; the summer heat was hard but he planned shade breaks.'},{who:'Ahmed, UAE',s:5,t:'Respectful and very well organised.'},{who:'Kim Soo-ah, South Korea',s:5,t:'Explained everything clearly in English.'},{who:'Li Wei, China',s:4,t:'Good guide; lunch stops could be shorter.'}]},
+ {id:'saule',n:'Saule',l:'English, 한국어',c:'#13506B',years:3,tours:['charyn','burabay'],bio:'Studied in Seoul; the go-to guide for Korean travellers.',
+  reviews:[{who:'Min-jun, South Korea',s:5,t:'Speaks Korean very well and is so cheerful.'},{who:'Ji-woo, South Korea',s:5,t:'Made the canyon walk easy and fun.'},{who:'Seo-yeon, South Korea',s:4,t:'Great guide, short on time at the last viewpoint.'},{who:'Daniel, Canada',s:5,t:'Friendly and well prepared.'},{who:'Park Ji-hoon, South Korea',s:5,t:'Helped us with everything, even SIM cards.'},{who:'Grace, UK',s:5,t:'Lovely energy all day.'}]}
 ];
+const guideAvg=g=>g.reviews.reduce((a,r)=>a+r.s,0)/g.reviews.length;
+
+/* ---------- photo galleries (Wikimedia Commons; broken files hide themselves) ---------- */
+const GALLERY={
+ charyn:['Charyn_Canyon,_Kazakhstan_03.jpg','Charyn_Canyon,_Kazakhstan_04.jpg','Charyn_Canyon.jpg','Sharyn_canyon_46.jpg','Charyn_Canyon_-_3.jpg'],
+ kolsai:['Lower_Kolsay_Lake_in_April.jpg','Scenic_Lake_Kaindy.jpg','IMG_9366-Kaindy-e.jpg'],
+ turkestan:['Mausoleum_of_Khoja_Ahmed_Yasawi_in_Turkistan_9.jpg','Turkestan.jpg','Маузолеј_Ходже_Ахмеда_Јасавија_(град_Туркестан,_Казахстан).jpg'],
+ burabay:['Burabay_020000,_Kazakhstan_-_panoramio_(2).jpg','Necklace_of_Mermaid.jpg']
+};
+const galleryOf=t=>[t.photo.file,...(GALLERY[t.id]||[])];
+
+/* ---------- where to stay (sample hotels and sample ratings for the prototype) ---------- */
+const NIGHTS={charyn:1,kolsai:2,turkestan:3,burabay:1};
+const AREA={charyn:'Charyn Canyon',kolsai:'Saty village Kazakhstan',turkestan:'Turkestan',burabay:'Burabay'};
+const HOTELS={
+ charyn:[
+  {id:'yurt',n:'Canyon Eco-Camp Yurts',type:'Yurt camp · shared bathrooms',lat:43.352,lng:79.071,add:0,r:{gis:4.6,ya:4.5,g:4.4},sv:[['Dinner by the fire','Included'],['Hot shower','Included'],['Night-sky walk with a guide','3,000 ₸'],['Extra blanket set','1,000 ₸']]},
+  {id:'temirlik',n:'Temirlik Valley Guesthouse',type:'Guesthouse · private rooms',lat:43.331,lng:79.032,add:6000,r:{gis:4.7,ya:4.6,g:4.6},sv:[['Breakfast','Included'],['Private bathroom','Included'],['Sauna (per hour, group)','8,000 ₸'],['Laundry','2,500 ₸']]},
+  {id:'kokpek',n:'Kokpek Steppe Lodge',type:'Small hotel · air conditioning',lat:43.468,lng:78.953,add:11000,r:{gis:4.8,ya:4.7,g:4.7},sv:[['Breakfast buffet','Included'],['Swimming pool','Included'],['Massage (60 min)','15,000 ₸'],['Late check-out','5,000 ₸']]}],
+ kolsai:[
+  {id:'saty',n:'Saty Village Guesthouse',type:'Family guesthouse · home cooking',lat:43.035,lng:78.408,add:0,r:{gis:4.5,ya:4.4,g:4.5},sv:[['All meals','Included'],['Banya (Russian sauna)','6,000 ₸'],['Horse ride to Upper Kolsai','10,000 ₸'],['Packed lunch','2,000 ₸']]},
+  {id:'cottage',n:'Kolsai Lakeside Cottages',type:'Wooden cottages · lake view',lat:43.000,lng:78.330,add:12000,r:{gis:4.7,ya:4.8,g:4.6},sv:[['Breakfast','Included'],['Fireplace wood','Included'],['Boat rental (1 hour)','5,000 ₸'],['Barbecue set','7,000 ₸']]},
+  {id:'camp',n:'Kaindy Forest Camp',type:'Glamping tents · heated',lat:42.990,lng:78.455,add:4000,r:{gis:4.4,ya:4.3,g:4.5},sv:[['Dinner and breakfast','Included'],['Sleeping bag upgrade','2,000 ₸'],['Sunrise photo walk','3,500 ₸'],['Power bank charging','Included']]}],
+ turkestan:[
+  {id:'oldtown',n:'Old Town Courtyard Hotel',type:'Boutique hotel · walk to the mausoleum',lat:43.296,lng:68.268,add:0,r:{gis:4.6,ya:4.6,g:4.5},sv:[['Breakfast','Included'],['Airport transfer','Included'],['Evening light-show tickets','3,000 ₸'],['Dinner set menu','6,500 ₸']]},
+  {id:'silk',n:'Silk Road Garden Hotel',type:'Hotel · pool and garden',lat:43.287,lng:68.258,add:15000,r:{gis:4.8,ya:4.7,g:4.8},sv:[['Breakfast buffet','Included'],['Outdoor pool','Included'],['Hammam (60 min)','12,000 ₸'],['Room service','from 3,000 ₸']]},
+  {id:'hostel',n:'Caravan Rooms Hostel',type:'Hostel · private rooms',lat:43.302,lng:68.276,add:-4000,r:{gis:4.3,ya:4.2,g:4.4},sv:[['Breakfast','2,500 ₸'],['Shared kitchen','Included'],['Bike rental (day)','3,000 ₸'],['Laundry','2,000 ₸']]}],
+ burabay:[
+  {id:'pine',n:'Pine Shore Resort',type:'Resort · lakeside',lat:53.087,lng:70.298,add:0,r:{gis:4.5,ya:4.6,g:4.4},sv:[['Breakfast, lunch, dinner','Included'],['Beach access','Included'],['Sauna (per hour)','10,000 ₸'],['Bike rental (day)','4,000 ₸']]},
+  {id:'okzh',n:'Okzhetpes View Hotel',type:'Hotel · rock and lake view',lat:53.074,lng:70.262,add:9000,r:{gis:4.7,ya:4.7,g:4.6},sv:[['Breakfast','Included'],['Spa pool','Included'],['Massage (60 min)','14,000 ₸'],['Kids club','Included']]},
+  {id:'chalet',n:'Burabay Forest Chalets',type:'Private chalets · for families',lat:53.100,lng:70.285,add:6000,r:{gis:4.6,ya:4.5,g:4.6},sv:[['Kitchen','Included'],['Barbecue area','Included'],['Breakfast basket','3,000 ₸'],['Baby cot','Included']]}]
+};
+const hotelLinks=t=>{const q=encodeURIComponent('hotels '+AREA[t.id]);return {gis:`https://2gis.kz/search/${q}`,ya:`https://yandex.com/maps/?text=${q}`,g:`https://www.google.com/maps/search/?api=1&query=${q}`};};
+
 const REVIEWS=[
  {who:'Sophie, Germany',tour:'kolsai',s:5,t:'Booking took two minutes and my German card worked straight away. The guide explained everything about the lakes.'},
  {who:'Li Na, China',tour:'charyn',s:5,t:'I found the trip on Xiaohongshu and paid with Alipay in one minute. Sunset at the Valley of Castles was the best photo of my whole trip.'},
@@ -661,15 +781,14 @@ $('#pResult').onclick=e=>{const b=e.target.closest('[data-open]');if(b)openTour(
 /* ---------- tour page ---------- */
 function openTour(id,fromHistory){
   const t=TOURS.find(x=>x.id===id);st.tour=t;
-  $('#dArt').innerHTML=photo(t,1280)+credit(t)+`<button class="preview-btn" id="pv">◎ See this route in 360°</button>`;
-  $('#pv').onclick=()=>openPano(t.id,1);
+  renderGallery(t);
   $('#dName').textContent=t.name;$('#dSummary').textContent=t.summary;
   $('#dFacts').innerHTML=[`${t.days} days`,`Starts in ${t.start}`,`Level: ${t.level}`,'Small group, max 8','Guide languages: EN · DE · 中文'].map(f=>`<span class="fact">${f}</span>`).join('');
   $('#dDays').innerHTML=t.plan.map(([d,x])=>`<div class="day"><b>${d}</b><p>${esc(x)}</p></div>`).join('');
   $('#dInc').innerHTML=t.inc.map(x=>`<li><span class="tick">✓</span>${esc(x)}</li>`).join('');
   $('#dExc').innerHTML=t.exc.map(x=>`<li><span class="tick cross">–</span>${esc(x)}</li>`).join('');
   $('#dBring').innerHTML=t.bring.map(x=>`<li>${esc(x)}</li>`).join('');
-  priceRail();show('tour');renderTourMap(t);
+  priceRail();show('tour');renderTourMap(t);renderGuides(t);renderHotels(t);
   if(!fromHistory)push({view:'tour',tour:id});
 }
 function priceRail(){if(!st.tour)return;$('#dPrice').textContent=money(st.tour.price);$('#dKzt').textContent=st.cur==='KZT'?'':`≈ ${Math.round(st.tour.price).toLocaleString('en-US').replace(/,/g,' ')} ₸ · you pay in ${st.cur}`;}
@@ -755,7 +874,7 @@ function departures(){const out=[],d=new Date();d.setDate(d.getDate()+5);for(let
 function startBooking(){st.step=0;st.date=null;st.booked=false;$('#bTitle').textContent='Book: '+st.tour.name;renderBooking();show('book');push({view:'book',tour:st.tour.id,step:0});}
 $('#bBack').onclick=()=>{if(history.state&&history.state.d>0){history.back();return;}if(st.step>0){st.step--;renderBooking();replace({view:'book',tour:st.tour.id,step:st.step});}else openTour(st.tour.id);};
 function renderBooking(){
-  const names=['Date','Travelers','Your details','Payment'];
+  const names=['Date','Travelers','Guide & stay','Payment'];
   $('#bSteps').innerHTML=names.map((n,i)=>`<span class="step ${i===st.step?'on':i<st.step?'done':''}"><i>${i<st.step?'✓':i+1}</i>${n}</span>`).join('');
   const p=$('#bPanel'),t=st.tour;
   if(st.step===0){
@@ -763,37 +882,148 @@ function renderBooking(){
     p.innerHTML=`<h3>Choose a departure date</h3><div class="dates">${ds.map((d,i)=>{const iso=d.toISOString().slice(0,10);const seats=[6,3,8,2,5,7][i];return `<button class="date" data-d="${iso}" aria-pressed="${st.date===iso}"><b>${d.toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'})}</b><small>${seats} seats left</small></button>`;}).join('')}</div><div class="actions"><span></span><button class="btn btn-gold" id="next" ${st.date?'':'disabled'}>Continue</button></div>`;
     p.querySelector('.dates').onclick=e=>{const b=e.target.closest('.date');if(!b)return;st.date=b.dataset.d;renderBooking();};
   }else if(st.step===1){
-    p.innerHTML=`<h3>How many travelers?</h3><div class="counter"><button id="minus" aria-label="Fewer travelers">−</button><output id="cnt" class="num">${st.people}</output><button id="plus" aria-label="More travelers">+</button></div><p class="muted" style="font-size:14px">Small groups only: up to 8 people per departure. Children under 12 get 30% off in the full product.</p><div class="actions"><span></span><button class="btn btn-gold" id="next">Continue</button></div>`;
-    $('#minus').onclick=()=>{st.people=Math.max(1,st.people-1);renderBooking();};
-    $('#plus').onclick=()=>{st.people=Math.min(8,st.people+1);renderBooking();};
+    p.innerHTML=`<h3>Who is travelling?</h3><p class="muted" style="font-size:14px">Add everyone in your group, up to 8 people. Age sets each traveler's category and price. Filled with example details for the demo.</p><div id="trows">${travelerRows()}</div><div><button class="btn btn-line sm" id="addT" ${st.travelers.length>=8?'disabled':''}>+ Add traveler</button></div><div class="field"><label for="fEmail">Email for the confirmation</label><input id="fEmail" type="email" value="${esc(st.email)}"></div><div class="gnotes" id="gnotes">${groupNotes(t)}</div><p class="err" id="terr" hidden>Add a name for every traveler.</p><div class="actions"><span></span><button class="btn btn-gold" id="next">Continue</button></div>`;
+    const rows=$('#trows');
+    rows.oninput=e=>{const el=e.target,k=el.dataset.k,r=el.closest('.trow');if(!k||!r)return;const x=st.travelers[+r.dataset.i];x[k]=k==='age'?el.value:el.value;if(k==='age')r.querySelector('[data-cat]').textContent=CATS[cat(el.value)].label;$('#gnotes').innerHTML=groupNotes(t);renderSummary();};
+    rows.onclick=e=>{const b=e.target.closest('[data-rm]');if(!b)return;st.travelers.splice(+b.dataset.rm,1);renderBooking();};
+    $('#addT').onclick=()=>{st.travelers.push({name:'',age:30,country:st.travelers[0].country});renderBooking();const n=$('#tn'+(st.travelers.length-1));if(n)n.focus();};
   }else if(st.step===2){
-    p.innerHTML=`<h3>Lead traveler</h3><p class="muted" style="font-size:14px">Filled with example details for the demo.</p><div class="grid2"><div class="field"><label for="fName">Full name</label><input id="fName" value="${esc(st.name)}"></div><div class="field"><label for="fEmail">Email</label><input id="fEmail" type="email" value="${esc(st.email)}"></div></div><div class="grid2"><div class="field"><label for="fCountry">Country</label><select id="fCountry">${['Germany','China','United Kingdom','South Korea','India','United States','Other'].map(c=>`<option ${c===st.country?'selected':''}>${c}</option>`).join('')}</select></div><div class="field"><label for="fLang">Guide language</label><select id="fLang"><option>English</option><option>Deutsch</option><option>中文</option></select></div></div><div class="actions"><span></span><button class="btn btn-gold" id="next">Continue to payment</button></div>`;
+    const c=choice(t);
+    p.innerHTML=`<h3>Your guide</h3><div class="opts" id="gopts">${GUIDES.filter(g=>g.tours.includes(t.id)).map(g=>`<button class="opt" data-g="${g.id}" aria-pressed="${c.guide===g.id}"><b>${g.n} · ${guideAvg(g).toFixed(1)} ★</b><small>${esc(g.l)}</small><small>${g.years} years guiding · ${g.reviews.length} reviews</small></button>`).join('')}</div><div><button class="btn btn-line sm" data-greviews="${c.guide}" id="gRev">Read reviews of ${curGuide(t).n}</button></div>
+      <h3>Where you stay · ${NIGHTS[t.id]} night${NIGHTS[t.id]>1?'s':''}</h3><div class="opts" id="hopts">${HOTELS[t.id].map(h=>`<button class="opt" data-h="${h.id}" aria-pressed="${c.hotel===h.id}"><b>${esc(h.n)}</b><small>${esc(h.type)}</small><small>Google ${h.r.g} · 2GIS ${h.r.gis} · Yandex ${h.r.ya}</small><small><b>${signed(h.add)}</b></small></button>`).join('')}</div>
+      <div class="gnotes">${groupNotes(t)}</div><div class="actions"><span></span><button class="btn btn-gold" id="next">Continue to payment</button></div>`;
+    $('#gopts').onclick=e=>{const b=e.target.closest('[data-g]');if(b){c.guide=b.dataset.g;renderBooking();}};
+    $('#hopts').onclick=e=>{const b=e.target.closest('[data-h]');if(b){c.hotel=b.dataset.h;renderBooking();}};
+    $('#gRev').onclick=()=>openGuideReviews(c.guide);
   }else{
+    const q=quote(t);
     const pays=[['card','Visa / Mastercard','Any foreign card'],['apple','Apple Pay','One tap'],['google','Google Pay','One tap'],['alipay','Alipay','For travelers from China'],['kaspi','Kaspi','For residents of Kazakhstan']];
-    p.innerHTML=`<h3>Payment</h3><div class="pays">${pays.map(([k,a,b])=>`<button class="pay" data-p="${k}" aria-pressed="${st.pay===k}"><b>${a}</b><small>${b}</small></button>`).join('')}</div><div class="secure"><span class="tick">✓</span><span>You will be sent to the payment provider's secure page to enter your card. Saryarqa Routes never sees or stores card numbers. <b>This prototype skips that step and does not charge anything.</b></span></div><div class="actions"><span></span><button class="btn btn-gold" id="next">Pay ${money(t.price*st.people)} (demo)</button></div>`;
+    p.innerHTML=`<h3>Payment</h3><div class="pays">${pays.map(([k,a,b])=>`<button class="pay" data-p="${k}" aria-pressed="${st.pay===k}"><b>${a}</b><small>${b}</small></button>`).join('')}</div><div class="secure"><span class="tick">✓</span><span>You will be sent to the payment provider's secure page to enter your card. Saryarqa Routes never sees or stores card numbers. <b>This prototype skips that step and does not charge anything.</b></span></div><div class="actions"><span></span><button class="btn btn-gold" id="next">Pay ${money(q.total)} (demo)</button></div>`;
     p.querySelector('.pays').onclick=e=>{const b=e.target.closest('.pay');if(!b)return;st.pay=b.dataset.p;renderBooking();};
   }
   const nx=$('#next');if(nx)nx.onclick=()=>{
-    if(st.step===2){st.name=$('#fName').value||'Guest';st.email=$('#fEmail').value||'guest@example.com';st.country=$('#fCountry').value;}
+    if(st.step===1){st.email=$('#fEmail').value||'guest@example.com';if(st.travelers.some(x=>!String(x.name).trim())){$('#terr').hidden=false;return;}}
     if(st.step<3){st.step++;renderBooking();push({view:'book',tour:st.tour.id,step:st.step});}else{nx.disabled=true;nx.textContent='Processing…';setTimeout(confirmBooking,900);}
   };
   renderSummary();
 }
 function renderSummary(){
-  const t=st.tour,d=st.date?new Date(st.date).toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'}):'Not chosen yet';
-  $('#bSummary').innerHTML=`<div class="tour-art" style="border-radius:12px;overflow:hidden;aspect-ratio:16/9">${photo(t,640)}</div><b style="font-family:var(--display);font-weight:500">${esc(t.name)}</b><div class="sumrow"><span class="muted">Date</span><span>${d}</span></div><div class="sumrow"><span class="muted">Travelers</span><span class="num">${st.people} × ${money(t.price)}</span></div><div class="sumrow"><span class="muted">Booking fee</span><span>${money(0)}</span></div><div class="sumrow total"><span>Total</span><span class="num">${money(t.price*st.people)}</span></div><div style="font-size:13px" class="muted">Included: ${t.inc.slice(0,3).map(esc).join(', ')} and more.</div><div class="policy"><div><span class="tick">✓</span><span style="font-size:13px">Free cancellation until 7 days before</span></div></div>`;
+  const t=st.tour,q=quote(t),g=curGuide(t),h=curHotel(t),d=st.date?new Date(st.date).toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'}):'Not chosen yet';
+  $('#bSummary').innerHTML=`<div class="tour-art" style="border-radius:12px;overflow:hidden;aspect-ratio:16/9">${photo(t,640)}</div><b style="font-family:var(--display);font-weight:500">${esc(t.name)}</b>
+  <div class="sumrow"><span class="muted">Date</span><span>${d}</span></div>
+  <div class="sumrow"><span class="muted">Guide</span><span>${g.n}</span></div>
+  <div class="sumrow"><span class="muted">Stay</span><span style="text-align:right">${esc(h.n)}</span></div>
+  ${q.lines.map(l=>`<div class="sumrow"><span class="muted">${l.label}${l.note?` <small>(${l.note})</small>`:''}</span><span class="num">${money(l.sum)}</span></div>`).join('')}
+  ${q.stay?`<div class="sumrow"><span class="muted">Stay ${q.stay>0?'upgrade':'saving'} · ${NIGHTS[t.id]} night${NIGHTS[t.id]>1?'s':''} × ${q.paying}</span><span class="num">${q.stay>0?'':'−'}${money(Math.abs(q.stay))}</span></div>`:''}
+  <div class="sumrow total"><span>Total</span><span class="num">${money(q.total)}</span></div>
+  <div class="policy"><div><span class="tick">✓</span><span style="font-size:13px">Free cancellation until 7 days before</span></div></div>`;
 }
 function confirmBooking(){
-  const t=st.tour,code='SR-'+Math.random().toString(36).slice(2,7).toUpperCase(),g=GUIDES.find(x=>x.t===t.id)||GUIDES[0];
+  const t=st.tour,q=quote(t),g=curGuide(t),h=curHotel(t),code='SR-'+Math.random().toString(36).slice(2,7).toUpperCase(),tr=st.travelers;
   const d=new Date(st.date).toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long'});
-  $('#cLine').textContent=`${t.name} · ${d} · ${st.people} traveler${st.people>1?'s':''} · paid ${money(t.price*st.people)}`;
+  $('#cLine').textContent=`${t.name} · ${d} · ${tr.length} traveler${tr.length>1?'s':''} · paid ${money(q.total)}`;
   $('#cCode').textContent=code;
   $('#cTo').innerHTML=`<span><b>To:</b> ${esc(st.email)}</span>`;
   $('#cSubj').innerHTML=`<span><b>Subject:</b> Confirmed: ${esc(t.name)}, ${d} (${code})</span>`;
-  $('#cEmail').innerHTML=`<p>Hi ${esc(st.name.split(' ')[0])},</p><p>Your trip is confirmed. Here is everything in one place.</p><p><b>Meeting point:</b> your hotel in ${esc(t.start)}, pickup time sent by your guide 48 hours before.</p><p><b>Included:</b> ${t.inc.map(esc).join(' · ')}</p><p><b>Not included:</b> ${t.exc.map(esc).join(' · ')}</p><p><b>Cancellation:</b> free until 7 days before departure, refunded to the same card.</p><p class="muted" style="font-size:13px">Saryarqa Routes LLP · Astana · Tour operator licence TO-000000 (sample)</p>`;
-  $('#cGuide').innerHTML=`<span class="ava" style="background:${g.c}">${g.n[0]}</span><div><b>${g.n}</b><small>${g.l}</small><small>WhatsApp: +7 700 000 00 00 (sample)</small></div>`;
+  $('#cEmail').innerHTML=`<p>Hi ${esc(String(tr[0].name).split(' ')[0]||'there')},</p><p>Your trip is confirmed. Here is everything in one place.</p>
+  <p><b>Travelers:</b> ${tr.map(x=>`${esc(x.name)} (${esc(x.age)}, ${CATS[cat(x.age)].label.split(' (')[0].toLowerCase()})`).join(' · ')}</p>
+  <p><b>Your guide:</b> ${g.n} (${esc(g.l)}). <b>Your stay:</b> ${esc(h.n)}, ${NIGHTS[t.id]} night${NIGHTS[t.id]>1?'s':''}.</p>
+  <p><b>Trip details for your group:</b> ${q.notes.map(esc).join(' ')}</p>
+  <p><b>Included:</b> ${t.inc.map(esc).join(' · ')}</p><p><b>Not included:</b> ${t.exc.map(esc).join(' · ')}</p>
+  <p><b>Cancellation:</b> free until 7 days before departure, refunded to the same card.</p><p class="muted" style="font-size:13px">Saryarqa Routes LLP · Astana · Tour operator licence TO-000000 (sample)</p>`;
+  $('#cGuide').innerHTML=`<span class="ava" style="background:${g.c}">${g.n[0]}</span><div><b>${g.n}</b><small>${esc(g.l)}</small><small>WhatsApp: +7 700 000 00 00 (sample)</small></div>`;
   st.booked=true;show('done');push({view:'done'});
 }
+
+/* ---------- choices per tour: guide and hotel ---------- */
+const sel={};
+function choice(t){if(!sel[t.id]){const g=GUIDES.find(x=>x.tours.includes(t.id));sel[t.id]={guide:g.id,hotel:HOTELS[t.id][0].id};}return sel[t.id];}
+const curGuide=t=>GUIDES.find(g=>g.id===choice(t).guide);
+const curHotel=t=>HOTELS[t.id].find(h=>h.id===choice(t).hotel);
+const starRow=n=>`<span class="stars" aria-label="${n.toFixed(1)} of 5">${'★'.repeat(Math.round(n))}${'☆'.repeat(5-Math.round(n))}</span>`;
+const signed=v=>v===0?'Included in price':(v>0?'+':'−')+money(Math.abs(v)).replace('-','')+' per night per person';
+
+/* ---------- gallery + lightbox ---------- */
+function renderGallery(t){
+  const files=galleryOf(t);
+  $('#dArt').innerHTML=photo(t,1280)+credit(t)+`<button class="preview-btn" id="pv">◎ See this route in 360°</button><button class="gal-open" id="galOpen">▦ ${files.length} photos</button>`;
+  $('#pv').onclick=e=>{e.stopPropagation();openPano(t.id,1);};
+  $('#galOpen').onclick=e=>{e.stopPropagation();openLightbox(0);};
+  $('#dThumbs').innerHTML=files.map((f,i)=>`<button class="thumb" data-i="${i}" aria-label="Open photo ${i+1}"><img src="${commonsImg(f,320)}" alt="" loading="lazy" onerror="this.parentElement.remove()"></button>`).join('');
+}
+$('#dThumbs').onclick=e=>{const b=e.target.closest('.thumb');if(b)openLightbox(+b.dataset.i);};
+let lb={i:0};
+function liveFiles(){const ok=[...document.querySelectorAll('#dThumbs .thumb')].map(b=>+b.dataset.i);const all=galleryOf(st.tour);return ok.length?ok.map(i=>all[i]):all;}
+function openLightbox(i){const files=galleryOf(st.tour);const live=liveFiles();let j=live.indexOf(files[i]);lb={i:j<0?0:j,files:live};showLb();$('#lightbox').hidden=false;}
+function showLb(){const f=lb.files[lb.i];$('#lbImg').src=commonsImg(f,1600);$('#lbImg').alt=`${st.tour.name}, photo ${lb.i+1}`;$('#lbCount').textContent=`${lb.i+1} / ${lb.files.length}`;$('#lbCredit').href=commonsPage(f);}
+$('#lbPrev').onclick=()=>{lb.i=(lb.i-1+lb.files.length)%lb.files.length;showLb();};
+$('#lbNext').onclick=()=>{lb.i=(lb.i+1)%lb.files.length;showLb();};
+$('#lbClose').onclick=()=>$('#lightbox').hidden=true;
+$('#lightbox').onclick=e=>{if(e.target.id==='lightbox')$('#lightbox').hidden=true;};
+document.addEventListener('keydown',e=>{if($('#lightbox').hidden)return;if(e.key==='Escape')$('#lightbox').hidden=true;if(e.key==='ArrowLeft')$('#lbPrev').click();if(e.key==='ArrowRight')$('#lbNext').click();});
+
+/* ---------- guides on the tour page ---------- */
+function renderGuides(t){
+  const c=choice(t);
+  $('#dGuides').innerHTML=GUIDES.filter(g=>g.tours.includes(t.id)).map(g=>`<div class="gcard${c.guide===g.id?' on':''}"><div class="gtop"><span class="ava" style="background:${g.c}">${g.n[0]}</span><div><b>${g.n}</b><small>${g.l} · ${g.years} years guiding</small><div class="grate">${starRow(guideAvg(g))} <span class="num">${guideAvg(g).toFixed(1)}</span></div></div></div><p class="muted">${esc(g.bio)}</p><div class="gact"><button class="btn btn-line sm" data-greviews="${g.id}">Read ${g.reviews.length} reviews</button><button class="btn ${c.guide===g.id?'btn-gold':'btn-line'} sm" data-gpick="${g.id}" aria-pressed="${c.guide===g.id}">${c.guide===g.id?'✓ Your guide':'Choose'}</button></div></div>`).join('');
+}
+$('#dGuides').onclick=e=>{const p=e.target.closest('[data-gpick]'),r=e.target.closest('[data-greviews]');if(p){choice(st.tour).guide=p.dataset.gpick;renderGuides(st.tour);}if(r)openGuideReviews(r.dataset.greviews);};
+function openGuideReviews(id){const g=GUIDES.find(x=>x.id===id);
+  $('#grTitle').textContent=`Reviews of ${g.n}`;
+  $('#grSub').innerHTML=`${starRow(guideAvg(g))} <b class="num">${guideAvg(g).toFixed(1)}</b> · ${g.reviews.length} sample reviews · ${esc(g.l)}`;
+  $('#grList').innerHTML=g.reviews.map(r=>`<div class="review"><header><b>${esc(r.who)}</b>${starRow(r.s)}</header><p>${esc(r.t)}</p></div>`).join('');
+  $('#grPick').textContent=choice(st.tour).guide===id?'✓ Your guide':`Choose ${g.n}`;$('#grPick').dataset.g=id;
+  $('#gModal').hidden=false;}
+$('#grPick').onclick=()=>{choice(st.tour).guide=$('#grPick').dataset.g;renderGuides(st.tour);$('#gModal').hidden=true;};
+$('#grClose').onclick=()=>$('#gModal').hidden=true;
+$('#gModal').onclick=e=>{if(e.target.id==='gModal')$('#gModal').hidden=true;};
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('#gModal').hidden)$('#gModal').hidden=true;});
+
+/* ---------- hotels: map + list with ratings and service prices ---------- */
+let hotelMap=null,hotelLayer=null;
+function renderHotels(t){
+  const c=choice(t),L2=hotelLinks(t),n=NIGHTS[t.id];
+  $('#dStayNote').textContent=`${n} night${n>1?'s':''} included. Pick where you sleep; upgrades change the price per traveler.`;
+  $('#dHotels').innerHTML=HOTELS[t.id].map((h,i)=>`<div class="hcard${c.hotel===h.id?' on':''}" data-hid="${h.id}"><div class="htop"><span class="hnum">${i+1}</span><div><b>${esc(h.n)}</b><small>${esc(h.type)}</small></div><span class="hprice">${signed(h.add)}</span></div>
+    <div class="rates"><span class="rate"><i>2GIS</i><b class="num">${h.r.gis.toFixed(1)}</b></span><span class="rate"><i>Yandex Maps</i><b class="num">${h.r.ya.toFixed(1)}</b></span><span class="rate"><i>Google Maps</i><b class="num">${h.r.g.toFixed(1)}</b></span></div>
+    <details><summary>Prices for services</summary><table class="svc">${h.sv.map(([a,b])=>`<tr><td>${esc(a)}</td><td>${esc(b)}</td></tr>`).join('')}</table></details>
+    <button class="btn ${c.hotel===h.id?'btn-gold':'btn-line'} sm" data-hpick="${h.id}" aria-pressed="${c.hotel===h.id}">${c.hotel===h.id?'✓ Selected':'Choose this stay'}</button></div>`).join('');
+  $('#dHotelLinks').innerHTML=`Sample hotels and ratings for the prototype. Check real places near ${esc(AREA[t.id].replace(' Kazakhstan',''))}: <a href="${L2.gis}" target="_blank" rel="noopener">2GIS</a> · <a href="${L2.ya}" target="_blank" rel="noopener">Yandex Maps</a> · <a href="${L2.g}" target="_blank" rel="noopener">Google Maps</a>`;
+  if(!hasL()){$('#hotelMap').innerHTML='<p class="map-off">The map could not load.</p>';return;}
+  if(!hotelMap){hotelMap=L.map('hotelMap',{scrollWheelZoom:false});tiles(hotelMap);}
+  if(hotelLayer)hotelLayer.remove();hotelLayer=L.layerGroup().addTo(hotelMap);
+  HOTELS[t.id].forEach((h,i)=>L.marker([h.lat,h.lng],{icon:pin(i+1,c.hotel===h.id?'#C99A2E':'#0A84A6'),title:h.n}).bindTooltip(`<b>${esc(h.n)}</b><br>Google ${h.r.g} · 2GIS ${h.r.gis} · Yandex ${h.r.ya}`,{direction:'top',offset:[0,-14]}).on('click',()=>{choice(t).hotel=h.id;renderHotels(t);}).addTo(hotelLayer));
+  setTimeout(()=>{hotelMap.invalidateSize();hotelMap.fitBounds(HOTELS[t.id].map(h=>[h.lat,h.lng]),{padding:[40,40],maxZoom:13});},60);
+}
+$('#dHotels').onclick=e=>{const b=e.target.closest('[data-hpick]');if(b){choice(st.tour).hotel=b.dataset.hpick;renderHotels(st.tour);}};
+
+/* ---------- travelers: everyone in the group changes price and trip details ---------- */
+st.travelers=[{name:'Alex Morgan',age:34,country:'Germany'},{name:'Sam Morgan',age:33,country:'Germany'}];
+const COUNTRIES=['China','Germany','South Korea','India','United Kingdom','United States','Japan','Kazakhstan','Other'];
+const CATS={infant:{label:'Infant (under 2)',f:0},child:{label:'Child (2–11)',f:.7},adult:{label:'Adult (12–59)',f:1},senior:{label:'Senior (60+)',f:.85}};
+function cat(age){age=+age;if(isNaN(age)||age<0)return'adult';if(age<2)return'infant';if(age<12)return'child';if(age>=60)return'senior';return'adult';}
+function quote(t){
+  const tr=st.travelers,h=curHotel(t),n=NIGHTS[t.id];
+  const counts={infant:0,child:0,adult:0,senior:0};tr.forEach(x=>counts[cat(x.age)]++);
+  const lines=Object.keys(CATS).filter(k=>counts[k]).map(k=>({label:`${counts[k]} × ${CATS[k].label}`,sum:counts[k]*t.price*CATS[k].f,note:k==='child'?'−30%':k==='senior'?'−15%':k==='infant'?'free':''}));
+  const paying=tr.length-counts.infant, stay=h.add*n*paying;
+  const total=lines.reduce((a,l)=>a+l.sum,0)+stay;
+  const notes=[];
+  notes.push(tr.length>=5?`Your group of ${tr.length} travels in a minibus.`:`Your group of ${tr.length} travels in an SUV${t.id==='kolsai'?' with 4×4 for the mountain road':''}.`);
+  notes.push(`Rooms: ${Math.max(1,Math.ceil((counts.adult+counts.senior)/2))} at ${h.n}${counts.child+counts.infant?'; children share with parents':''}.`);
+  if(counts.child)notes.push('Child seats and a kids\' menu are included.');
+  if(counts.infant)notes.push('Travelers under 2 go free; a baby cot is arranged.');
+  if(t.id==='kolsai'&&tr.some(x=>+x.age<6))notes.push('With children under 6, the upper Kolsai hike is replaced by an easy lakeside walk.');
+  if(counts.senior)notes.push(t.level==='Moderate'?'Easy-pace version for travelers 60+: shorter walks, horses available at Kolsai (pay on site).':'Front seats and a slower pace for travelers 60+.');
+  if(t.id==='turkestan'&&counts.senior)notes.push('Shade breaks and a midday rest are added to the Turkestan program.');
+  return {lines,stay,total,notes,counts,paying};
+}
+function travelerRows(){return st.travelers.map((x,i)=>{const c=cat(x.age);return `<div class="trow" data-i="${i}">
+  <div class="field"><label for="tn${i}">${i===0?'Lead traveler':'Traveler '+(i+1)}: full name</label><input id="tn${i}" data-k="name" value="${esc(x.name)}" placeholder="As in passport"></div>
+  <div class="field age"><label for="ta${i}">Age</label><input id="ta${i}" data-k="age" type="number" min="0" max="110" value="${esc(x.age)}"></div>
+  <div class="field"><label for="tc${i}">Citizenship</label><select id="tc${i}" data-k="country">${COUNTRIES.map(c=>`<option ${c===x.country?'selected':''}>${c}</option>`).join('')}</select></div>
+  <div class="tcat"><span class="catbadge" data-cat>${CATS[c].label}</span>${st.travelers.length>1?`<button class="trm" data-rm="${i}" aria-label="Remove traveler ${i+1}">×</button>`:''}</div></div>`;}).join('');}
+function groupNotes(t){const q=quote(t);return `<h4>How your group changes the trip</h4><ul>${q.notes.map(n=>`<li>${esc(n)}</li>`).join('')}</ul>`;}
 
 /* ---------- AI assistant (scripted for the prototype) ---------- */
 const RULES=[
