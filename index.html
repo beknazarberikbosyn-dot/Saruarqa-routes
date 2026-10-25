@@ -329,6 +329,25 @@ button.tcard{cursor:pointer}
 .pv-note{padding:0 18px 16px;font-size:12.5px;color:var(--muted);margin:0}
 
 footer{border-top:1px solid var(--line);padding-block:28px;font-size:13px;color:var(--muted)}
+.contact{background:var(--surface);border-top:1px solid var(--line)}
+.contact .wrap{padding-block:40px;display:grid;grid-template-columns:1.1fr 1.4fr 1fr;gap:28px;align-items:start}
+.contact h2{font-size:24px}
+.contact .lead{color:var(--muted);margin-top:8px;font-size:15px}
+.hours{margin-top:14px;display:grid;gap:4px;font-size:14px}
+.hours b{color:var(--ink)}
+.clist{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.cbtn{display:flex;gap:10px;align-items:center;border:1.5px solid var(--line);background:var(--bg);border-radius:12px;padding:10px 12px;text-align:left;cursor:pointer;color:var(--ink);min-width:0}
+.cbtn:hover,.cbtn:focus-visible{border-color:var(--sky)}
+.cbtn svg{flex:none;color:var(--sky)}
+.cbtn span{min-width:0}
+.cbtn b{display:block;font-size:14px}
+.cbtn small{display:block;color:var(--muted);font-size:12.5px;overflow-wrap:anywhere}
+.callback{display:grid;gap:10px;background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:16px}
+.callback h3{font-size:16px}
+.demo-tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--warn-ink);background:var(--warn-bg);border-radius:6px;padding:2px 6px;margin-left:6px;vertical-align:middle}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:50;background:var(--ink);color:var(--bg);padding:12px 16px;border-radius:12px;font-size:14px;max-width:min(520px,calc(100vw - 32px));box-shadow:var(--shadow)}
+@media (max-width:960px){.contact .wrap{grid-template-columns:1fr}}
+@media (max-width:560px){.clist{grid-template-columns:1fr}}
 
 @media (max-width:960px){
   .reviews{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -369,6 +388,7 @@ footer{border-top:1px solid var(--line);padding-block:28px;font-size:13px;color:
       <button data-sec="map360" data-i18n="navMap">360° map</button>
       <button data-sec="reviews" data-i18n="navReviews">Reviews</button>
       <button data-sec="trust" data-i18n="navTrust">Why trust us</button>
+      <button data-sec="contact" data-i18n="navContact">Contact</button>
     </nav>
     <div class="prefs">
       <select id="lang" aria-label="Language"><option value="en">EN</option><option value="de">DE</option><option value="zh">中文</option></select>
@@ -570,7 +590,27 @@ footer{border-top:1px solid var(--line);padding-block:28px;font-size:13px;color:
 </div>
 </main>
 
-<footer><div class="wrap">Saryarqa Routes · Astana, Kazakhstan · Concept prototype for Zerttex Hackathon 2026. Not a real company.<p class="credits" style="margin-top:8px">Photos from Wikimedia Commons, used under their free licences; authors and licences are on each file page: <a href="https://commons.wikimedia.org/wiki/File:Big_Almaty_Lake_(2511_m)_and_snowy_peak_of_Soviets_(4317_m)_in_September,_2,_2017.jpg" target="_blank" rel="noopener">Big Almaty Lake</a> · <a href="https://commons.wikimedia.org/wiki/File:Charyn_Canyon,_Kazakhstan_02.jpg" target="_blank" rel="noopener">Charyn Canyon</a> · <a href="https://commons.wikimedia.org/wiki/File:Kolsai_lake.jpg" target="_blank" rel="noopener">Kolsai Lake</a> · <a href="https://commons.wikimedia.org/wiki/File:Mausoleum_of_Khoja_Ahmed_Yasavi_in_Turkestan,_Kazakhstan.jpg" target="_blank" rel="noopener">Mausoleum of Khoja Ahmed Yasawi</a> · <a href="https://commons.wikimedia.org/wiki/File:%D0%91%D0%BE%D1%80%D0%BE%D0%B2%D0%BE%D0%B5-201007.jpg" target="_blank" rel="noopener">Lake Burabay</a>. Gallery photos link to their own file pages.</p></div></footer>
+<section class="contact" id="contact" aria-labelledby="contactTitle">
+  <div class="wrap">
+    <div>
+      <div class="eyebrow">Contact us</div>
+      <h2 id="contactTitle">Talk to a real manager <span class="demo-tag">Demo</span></h2>
+      <p class="lead">Questions about a trip, a visa or a group booking? Write to us in English, Chinese, Russian or Kazakh.</p>
+      <div class="hours"><span><b>Managers:</b> every day, 08:00–22:00 (Astana time)</span><span><b>Call center:</b> 24/7</span><span><b>Average reply:</b> about 5 minutes</span></div>
+    </div>
+    <div class="clist"><button class="cbtn" data-contact="WhatsApp chat with a manager"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M20 12a8 8 0 0 1-11.7 7.1L4 20.5l1.4-4.2A8 8 0 1 1 20 12z"/><path d="M9 9.5c.3 2 2.2 4 4.5 4.6l1.2-1.2 1.8.9"/></svg><span><b>WhatsApp</b><small>+7 700 000 00 00</small></span></button><button class="cbtn" data-contact="Telegram chat with a manager"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M21 4 3 11l6 2 2 6 3-4 5 4z"/><path d="m9 13 8-6"/></svg><span><b>Telegram</b><small>@saryarqa_routes_demo</small></span></button><button class="cbtn" data-contact="WeChat chat with our Chinese-speaking manager"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><ellipse cx="9" cy="10" rx="6.5" ry="5"/><path d="M5.5 14 5 17l3-1.6"/><path d="M15.5 9.2c3 .3 5.5 2.3 5.5 4.8 0 1.3-.7 2.4-1.8 3.3l.4 2.2-2.3-1.2a7 7 0 0 1-1.8.2c-2.6 0-4.8-1.4-5.4-3.3"/></svg><span><b>WeChat</b><small>ID: SaryarqaRoutes_Demo</small></span></button><button class="cbtn" data-contact="a phone call to our call center"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A17 17 0 0 1 3 5a2 2 0 0 1 2-2z"/></svg><span><b>Call center</b><small>+7 (7172) 00-00-00</small></span></button><button class="cbtn" data-contact="an email to our team"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><span><b>Email</b><small>hello@saryarqa-routes.example</small></span></button><button class="cbtn" data-contact="our page on Instagram and Xiaohongshu"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg><span><b>Instagram & Xiaohongshu</b><small>@saryarqa.routes.demo</small></span></button></div>
+    <form class="callback" id="callback" novalidate>
+      <h3>Request a call back</h3>
+      <div class="field"><label for="cbName">Your name</label><input id="cbName" placeholder="Li Na"></div>
+      <div class="field"><label for="cbPhone">Phone or WeChat ID</label><input id="cbPhone" placeholder="+86 …"></div>
+      <div class="field"><label for="cbLang">Language</label><select id="cbLang"><option>English</option><option>中文</option><option>Русский</option><option>Қазақша</option></select></div>
+      <button class="btn btn-gold sm" type="submit">Call me back</button>
+      <p class="src" style="margin:0">Demo form: nothing is sent.</p>
+    </form>
+  </div>
+</section>
+
+<footer><div class="wrap">Contacts on this page are not real; they show how the contact block would look. Saryarqa Routes · Astana, Kazakhstan · Concept prototype for Zerttex Hackathon 2026. Not a real company.<p class="credits" style="margin-top:8px">Photos from Wikimedia Commons, used under their free licences; authors and licences are on each file page: <a href="https://commons.wikimedia.org/wiki/File:Big_Almaty_Lake_(2511_m)_and_snowy_peak_of_Soviets_(4317_m)_in_September,_2,_2017.jpg" target="_blank" rel="noopener">Big Almaty Lake</a> · <a href="https://commons.wikimedia.org/wiki/File:Charyn_Canyon,_Kazakhstan_02.jpg" target="_blank" rel="noopener">Charyn Canyon</a> · <a href="https://commons.wikimedia.org/wiki/File:Kolsai_lake.jpg" target="_blank" rel="noopener">Kolsai Lake</a> · <a href="https://commons.wikimedia.org/wiki/File:Mausoleum_of_Khoja_Ahmed_Yasavi_in_Turkestan,_Kazakhstan.jpg" target="_blank" rel="noopener">Mausoleum of Khoja Ahmed Yasawi</a> · <a href="https://commons.wikimedia.org/wiki/File:%D0%91%D0%BE%D1%80%D0%BE%D0%B2%D0%BE%D0%B5-201007.jpg" target="_blank" rel="noopener">Lake Burabay</a>. Gallery photos link to their own file pages.</p></div></footer>
 
 <!-- AI assistant -->
 <button class="fab" id="fab" aria-expanded="false" aria-controls="chat" aria-label="Ask Aru the camel, our AI travel guide"><span class="hint" data-i18n="fab">Hi, I'm Aru! Ask me anything</span><span class="ava-wrap" data-camel></span></button>
@@ -731,8 +771,8 @@ function credit(t){return t.photo?`<a class="credit" href="${commonsPage(t.photo
 
 /* ---------- i18n (key UI strings only in prototype) ---------- */
 const T={
- de:{navTours:'Touren',navPlan:'Reiseplaner',navTrust:'Warum wir',navMap:'360°-Karte',navReviews:'Bewertungen',heroEyebrow:'Geführte Reisen durch Kasachstan',heroTitle:'Canyons, Bergseen und Städte der Seidenstraße. In zwei Minuten gebucht.',heroLead:'Klare Preise in Ihrer Währung, eine vollständige Leistungsliste und sichere Zahlung mit Ihrer eigenen Karte.',p1:'Zahlen mit Visa, Mastercard, Apple Pay',p2:'Kostenlose Stornierung bis 7 Tage',p3:'KI-Assistent rund um die Uhr',planEyebrow:'KI-Reiseplaner',planTitle:'Ihre Tage und Interessen',planDays:'Verfügbare Tage',planInt:'Ich interessiere mich für',toursEyebrow:'Unsere Routen',toursTitle:'Vier Reisen, jeweils ein klarer Preis',toursLead:'Jeder Preis gilt pro Person und enthält bereits Guide, Transport, Mahlzeiten und Eintritte.',trustEyebrow:'Warum wir',trustTitle:'Ein registriertes Unternehmen aus Astana',fab:'Hallo, ich bin Aru! Frag mich alles'},
- zh:{navTours:'线路',navPlan:'行程规划',navTrust:'为什么信任我们',navMap:'360°地图',navReviews:'评价',heroEyebrow:'哈萨克斯坦精品导游团',heroTitle:'峡谷、高山湖泊与丝绸之路古城，两分钟完成预订。',heroLead:'以您的货币显示清晰价格，完整列出包含项目，并可使用您自己的银行卡安全支付。',p1:'支持 Visa、Mastercard、Apple Pay、支付宝',p2:'出发前7天免费取消',p3:'24小时AI助手',planEyebrow:'AI行程规划',planTitle:'告诉我们您的天数和兴趣',planDays:'可用天数',planInt:'我感兴趣的是',toursEyebrow:'我们的线路',toursTitle:'四条线路，每条一个透明价格',toursLead:'价格按每位游客计算，已包含导游、交通、餐食和门票。',trustEyebrow:'为什么信任我们',trustTitle:'阿斯塔纳正规注册公司',fab:'你好，我是骆驼 Aru！有问题尽管问'}
+ de:{navTours:'Touren',navPlan:'Reiseplaner',navTrust:'Warum wir',navMap:'360°-Karte',navReviews:'Bewertungen',navContact:'Kontakt',heroEyebrow:'Geführte Reisen durch Kasachstan',heroTitle:'Canyons, Bergseen und Städte der Seidenstraße. In zwei Minuten gebucht.',heroLead:'Klare Preise in Ihrer Währung, eine vollständige Leistungsliste und sichere Zahlung mit Ihrer eigenen Karte.',p1:'Zahlen mit Visa, Mastercard, Apple Pay',p2:'Kostenlose Stornierung bis 7 Tage',p3:'KI-Assistent rund um die Uhr',planEyebrow:'KI-Reiseplaner',planTitle:'Ihre Tage und Interessen',planDays:'Verfügbare Tage',planInt:'Ich interessiere mich für',toursEyebrow:'Unsere Routen',toursTitle:'Vier Reisen, jeweils ein klarer Preis',toursLead:'Jeder Preis gilt pro Person und enthält bereits Guide, Transport, Mahlzeiten und Eintritte.',trustEyebrow:'Warum wir',trustTitle:'Ein registriertes Unternehmen aus Astana',fab:'Hallo, ich bin Aru! Frag mich alles'},
+ zh:{navTours:'线路',navPlan:'行程规划',navTrust:'为什么信任我们',navMap:'360°地图',navReviews:'评价',navContact:'联系我们',heroEyebrow:'哈萨克斯坦精品导游团',heroTitle:'峡谷、高山湖泊与丝绸之路古城，两分钟完成预订。',heroLead:'以您的货币显示清晰价格，完整列出包含项目，并可使用您自己的银行卡安全支付。',p1:'支持 Visa、Mastercard、Apple Pay、支付宝',p2:'出发前7天免费取消',p3:'24小时AI助手',planEyebrow:'AI行程规划',planTitle:'告诉我们您的天数和兴趣',planDays:'可用天数',planInt:'我感兴趣的是',toursEyebrow:'我们的线路',toursTitle:'四条线路，每条一个透明价格',toursLead:'价格按每位游客计算，已包含导游、交通、餐食和门票。',trustEyebrow:'为什么信任我们',trustTitle:'阿斯塔纳正规注册公司',fab:'你好，我是骆驼 Aru！有问题尽管问'}
 };
 const EN={};document.querySelectorAll('[data-i18n]').forEach(el=>EN[el.dataset.i18n]=el.textContent);
 function applyLang(){document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.dataset.i18n;el.textContent=(T[st.lang]&&T[st.lang][k])||EN[k];});document.documentElement.lang=st.lang;}
@@ -740,7 +780,7 @@ function applyLang(){document.querySelectorAll('[data-i18n]').forEach(el=>{const
 /* ---------- views ---------- */
 function show(v){['home','tour','book','done'].forEach(x=>$('#view-'+x).hidden=x!==v);if(v!=='home'&&typeof markSection==='function')markSection('');window.scrollTo(0,0);if(v==='home'&&homeMap)setTimeout(()=>homeMap.invalidateSize(),60);}
 /* ---------- browser history: the back / forward arrows move between pages and booking steps ---------- */
-const SECTIONS=['planner','tours','map360','trust','reviews'];
+const SECTIONS=['planner','tours','map360','trust','reviews','contact'];
 function stateUrl(x){if(x.view==='tour')return '#tour-'+x.tour;if(x.view==='book')return `#book-${x.tour}-${x.step+1}`;if(x.view==='done')return '#booked';return x.section?'#'+x.section:location.pathname+location.search;}
 function push(x){x.d=((history.state&&history.state.d)||0)+1;history.pushState(x,'',stateUrl(x));}
 function replace(x){x.d=(history.state&&history.state.d)||0;history.replaceState(x,'',stateUrl(x));}
@@ -1116,6 +1156,12 @@ $('#chatClose').onclick=()=>{$('#chat').hidden=true;$('#fab').setAttribute('aria
 $('#quick').innerHTML=QUICK.map(q=>`<button>${q}</button>`).join('');
 $('#quick').onclick=e=>{const b=e.target.closest('button');if(b)say(b.textContent);};
 $('#chatForm').onsubmit=e=>{e.preventDefault();const v=$('#chatIn').value.trim();if(!v)return;$('#chatIn').value='';say(v);};
+
+/* ---------- contact block (demo only: no real contacts, nothing is sent) ---------- */
+let toastT;
+function toast(msg){let t=document.getElementById('toast');if(!t){t=document.createElement('div');t.id='toast';t.className='toast';t.setAttribute('role','status');document.body.appendChild(t);}t.textContent=msg;t.hidden=false;clearTimeout(toastT);toastT=setTimeout(()=>t.hidden=true,4200);}
+$('#contact').addEventListener('click',e=>{const b=e.target.closest('[data-contact]');if(b)toast(`Demo: in the real product this opens ${b.dataset.contact}. These contacts are not real.`);});
+$('#callback').onsubmit=e=>{e.preventDefault();const n=$('#cbName').value.trim(),ph=$('#cbPhone').value.trim();if(!n||!ph){toast('Please enter your name and a phone number or WeChat ID.');return;}toast(`Thank you, ${n}! In the real product a manager would call you back in ${$('#cbLang').value}. Demo: nothing was sent.`);e.target.reset();};
 
 /* ---------- prefs ---------- */
 $('#cur').value=st.cur;$('#lang').value=st.lang;
