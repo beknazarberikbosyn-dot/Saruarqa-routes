@@ -21,6 +21,10 @@ Also included: AI trip planner, AI assistant "Aru the camel" (an animated avatar
 - Stop coordinates are approximate. Edit them in the `POINTS` object in `index.html`.
 - The map and panoramas need an internet connection and work on GitHub Pages or any normal web host.
 
+## Getting there
+
+Each tour page lets the traveler pick the arrival city (Almaty or Astana) and how to reach the tour start: plane, train or private car, with approximate time, cost, distance, CO₂ and fuel. Ship is shown as not possible, because no water route reaches these tours. The choice is added to the booking total. Times and prices are approximate estimates for the prototype.
+
 ## Photos
 
 Tour photos are real pictures from Wikimedia Commons, loaded through `Special:FilePath` and credited with links to each file page (author and licence are listed there). If a photo cannot load, the page shows the original illustration instead.
