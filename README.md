@@ -25,6 +25,18 @@ Also included: AI trip planner, AI assistant "Aru the camel" (an animated avatar
 
 Each tour page lets the traveler pick the arrival city (Almaty or Astana) and how to reach the tour start: plane, train or private car, with approximate time, cost, distance, CO₂ and fuel. Ship is shown as not possible, because no water route reaches these tours. The choice is added to the booking total. Times and prices are approximate estimates for the prototype.
 
+## Food and diet needs
+
+Under "Food on the way and during the trip" the traveler types the group's needs in plain words (English, Chinese or Russian), for example "I'm vegan, my child is allergic to peanuts", or taps tags. The menu follows the chosen travel mode: an airline special-meal code for the plane, dining-car meals for the train, a packed lunch for the car, and guesthouse meals during the tour. Dishes that do not fit are swapped, and the page shows what was replaced and why. Allergies add a warning, because shared kitchens and airlines cannot promise zero traces.
+
+## Documents
+
+When adding travelers, every person uploads a document that confirms name and age: a passport photo page, or a passport or birth certificate for children. A manager checks them within 24 hours, so child and senior prices cannot be misused. In the prototype, files never leave the browser; "Use sample documents (demo)" fills in sample files.
+
+## AI assistant (Aru)
+
+Aru reads the whole question: the tour (also with typos, such as "Charun"), number of days, budget and currency, number of people, transport and food needs. It answers in the language of the question (English, Chinese or Russian), remembers the last tour mentioned, and suggests trips that fit the budget. The answers are still scripted; in the real product the same trip data would go to an AI model.
+
 ## Photos
 
 Tour photos are real pictures from Wikimedia Commons, loaded through `Special:FilePath` and credited with links to each file page (author and licence are listed there). If a photo cannot load, the page shows the original illustration instead.
@@ -34,6 +46,7 @@ Tour photos are real pictures from Wikimedia Commons, loaded through `Special:Fi
 - This is a demo. Prices, reviews, guides and exchange rates are sample data.
 - No real bookings or payments happen. No card details are collected.
 - The AI assistant uses scripted answers.
+- Exchange rates are fixed: USD from the National Bank rate of 20 October 2026; EUR and CNY are approximate.
 
 ## Run
 
