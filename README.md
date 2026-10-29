@@ -25,6 +25,14 @@ Also included: AI trip planner, AI assistant "Aru the camel" (an animated avatar
 
 Each tour page lets the traveler pick the arrival city (Almaty or Astana) and how to reach the tour start: plane, train or private car, with approximate time, cost, distance, CO₂ and fuel. Ship is shown as not possible, because no water route reaches these tours. The choice is added to the booking total. Times and prices are approximate estimates for the prototype.
 
+## Videos and reviews
+
+Every tour page has a "Videos and reviews" block with two real travel videos about the place from YouTube. A video loads only after the visitor presses play (privacy-enhanced youtube-nocookie embed). Each card also links to the video on YouTube, and the block has a YouTube search for more reviews plus a Bilibili search, because YouTube does not open in mainland China without a VPN. The videos belong to their authors; the site only embeds them.
+
+## Hover animations
+
+Buttons, tour cards, options, chips and tabs lift or grow slightly on hover, and tour photos zoom in. Animations are switched off for visitors who ask for reduced motion in their system settings.
+
 ## Food and diet needs
 
 Under "Food on the way and during the trip" the traveler types the group's needs in plain words (English, Chinese or Russian), for example "I'm vegan, my child is allergic to peanuts", or taps tags. The menu follows the chosen travel mode: an airline special-meal code for the plane, dining-car meals for the train, a packed lunch for the car, and guesthouse meals during the tour. Dishes that do not fit are swapped, and the page shows what was replaced and why. Allergies add a warning, because shared kitchens and airlines cannot promise zero traces.
