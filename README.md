@@ -16,10 +16,15 @@ Also included: AI trip planner, AI assistant "Aru the camel" (an animated avatar
 ## 360° route map
 
 - An interactive map (Leaflet + OpenStreetMap) shows all four routes with numbered stops, plus a route map on every tour page.
-- Tapping a stop opens a viewer with tabs: a 360° video from YouTube where one exists (Almaty, Astana, Charyn Canyon, the Yasawi mausoleum and Turkestan), a regular travel video for the other stops, and Google Street View.
-- Google Street View often shows a grey screen in nature, because Google has no street-level photos there; that is why videos come first. "Open in Google Maps" opens the place in Google Maps.
+- Tapping a stop opens a real 360° panorama first:
+  - Charyn Canyon, Saty, Kolsai and Kaindy: AirPano 360° panoramas (embedded with their official embed code, credited "Courtesy of AirPano.com");
+  - Mausoleum of Khoja Ahmed Yasawi: 360° panoramas of the Silk Road 3D project;
+  - Almaty and Astana: Google Street View;
+  - Okzhetpes and Lake Burabay: real 360° panoramas on 360Cities, which open in a new tab (360Cities does not allow free embedding);
+  - Sauran and Otrar: visitors' 360° photos in Google Maps (no free embeddable panorama was found).
+- Extra tabs hold 360° videos and travel videos from YouTube, and Google Street View.
 - In the real product the team shoots its own 360° photos at every stop with an Insta360 X4 camera (already in the budget).
-- Stops, coordinates and videos are in the `POINTS` object in `index.html`.
+- Stops, coordinates and panoramas are in the `POINTS` object in `index.html`.
 
 ## Getting there
 
