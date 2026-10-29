@@ -29,6 +29,10 @@ Each tour page lets the traveler pick the arrival city (Almaty or Astana) and ho
 
 Every tour page has a "Videos and reviews" block with two real travel videos about the place from YouTube. A video loads only after the visitor presses play (privacy-enhanced youtube-nocookie embed). Each card also links to the video on YouTube, and the block has a YouTube search for more reviews plus a Bilibili search, because YouTube does not open in mainland China without a VPN. The videos belong to their authors; the site only embeds them.
 
+## Reviews
+
+28 sample reviews from 1 to 5 stars (average 3.9). A rating bar chart next to the average works as a filter: tap "2 ★" to see only 2-star reviews, together with the trip filter. Low ratings show a reply from the company, so travelers see how problems are solved. The numbers in the "Why trust us" cards count up from zero on hover and when they first appear.
+
 ## Hover animations
 
 Buttons, tour cards, options, chips and tabs lift or grow slightly on hover, and tour photos zoom in. Animations are switched off for visitors who ask for reduced motion in their system settings.
