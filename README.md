@@ -16,10 +16,10 @@ Also included: AI trip planner, AI assistant "Aru the camel" (an animated avatar
 ## 360° route map
 
 - An interactive map (Leaflet + OpenStreetMap) shows all four routes with numbered stops, plus a route map on every tour page.
-- Tapping a stop opens a real 360° panorama from Google Street View at that point, with previous / next stop buttons.
-- "Open 360° in Google Maps" opens the nearest 360° photo in Google Maps, which helps where Street View has no imagery.
-- Stop coordinates are approximate. Edit them in the `POINTS` object in `index.html`.
-- The map and panoramas need an internet connection and work on GitHub Pages or any normal web host.
+- Tapping a stop opens a viewer with tabs: a 360° video from YouTube where one exists (Almaty, Astana, Charyn Canyon, the Yasawi mausoleum and Turkestan), a regular travel video for the other stops, and Google Street View.
+- Google Street View often shows a grey screen in nature, because Google has no street-level photos there; that is why videos come first. "Open in Google Maps" opens the place in Google Maps.
+- In the real product the team shoots its own 360° photos at every stop with an Insta360 X4 camera (already in the budget).
+- Stops, coordinates and videos are in the `POINTS` object in `index.html`.
 
 ## Getting there
 
